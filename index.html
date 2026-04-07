@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Evo Elite Pro Clubs — Sistema de Treinos</title>
+<title>Evo Elite Pro Clubs â Sistema de Treinos</title>
 <style>
   :root {
     --bg: #08060f; --bg2: #100d1a; --bg3: #181228; --border: #2e2050;
@@ -165,7 +165,7 @@
   .hist-table tr:last-child td { border-bottom: none; }
   .best-session { background: linear-gradient(135deg,#1a0a30,#2a1040); border: 1px solid #9333ea55; border-radius: 10px; padding: 14px; margin-bottom: 16px; }
   .best-label { font-size: 11px; color: #c084fc; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
-  /* ===== ESCALAÇÃO ===== */
+  /* ===== ESCALAÃÃO ===== */
   .pitch-wrap { background:linear-gradient(180deg,#14532d,#166534); border-radius:12px; padding:16px 8px; }
   .pitch-inner { border:2px solid rgba(255,255,255,.15); border-radius:8px; padding:16px 6px; }
   .pitch-row { display:flex; justify-content:center; gap:8px; margin-bottom:18px; }
@@ -211,9 +211,9 @@
 <div class="setup-overlay" id="setup-overlay" style="display:none">
   <div class="setup-box">
     <div style="text-align:center;margin-bottom:24px">
-      <div style="font-size:36px;margin-bottom:8px">🔥</div>
+      <div style="font-size:36px;margin-bottom:8px">ð¥</div>
       <div style="font-size:20px;font-weight:800;background:linear-gradient(90deg,#c084fc,#9333ea);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Configurar Firebase</div>
-      <div style="color:var(--text2);font-size:13px;margin-top:4px">Cole sua configuração do Firebase para ativar o sync em tempo real</div>
+      <div style="color:var(--text2);font-size:13px;margin-top:4px">Cole sua configuraÃ§Ã£o do Firebase para ativar o sync em tempo real</div>
     </div>
     <div class="form-group">
       <label>Cole aqui o objeto <code style="background:var(--bg3);padding:2px 6px;border-radius:4px;color:#c084fc">firebaseConfig</code></label>
@@ -228,13 +228,13 @@
 }'></textarea>
     </div>
     <div id="setup-error" style="color:var(--red);font-size:13px;margin-bottom:10px"></div>
-    <button class="btn btn-primary" style="width:100%" onclick="saveFirebaseConfig()">🚀 Conectar e Salvar</button>
+    <button class="btn btn-primary" style="width:100%" onclick="saveFirebaseConfig()">ð Conectar e Salvar</button>
     <div style="margin-top:20px;border-top:1px solid #2e1a50;padding-top:16px">
-      <div style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px">Como pegar sua configuração:</div>
+      <div style="font-size:12px;font-weight:700;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px">Como pegar sua configuraÃ§Ã£o:</div>
       <div class="setup-step"><div class="setup-step-num">1</div><div class="setup-step-text">Acesse <strong>console.firebase.google.com</strong> e crie um projeto gratuito</div></div>
-      <div class="setup-step"><div class="setup-step-num">2</div><div class="setup-step-text">No projeto, clique em <strong>"Adicionar app" → Web (&lt;/&gt;)</strong> e registre o app</div></div>
+      <div class="setup-step"><div class="setup-step-num">2</div><div class="setup-step-text">No projeto, clique em <strong>"Adicionar app" â Web (&lt;/&gt;)</strong> e registre o app</div></div>
       <div class="setup-step"><div class="setup-step-num">3</div><div class="setup-step-text">Copie o objeto <strong>firebaseConfig</strong> que aparecer e cole acima</div></div>
-      <div class="setup-step"><div class="setup-step-num">4</div><div class="setup-step-text">Vá em <strong>Realtime Database → Criar banco de dados → Modo de teste</strong></div></div>
+      <div class="setup-step"><div class="setup-step-num">4</div><div class="setup-step-text">VÃ¡ em <strong>Realtime Database â Criar banco de dados â Modo de teste</strong></div></div>
       <div class="setup-step"><div class="setup-step-num">5</div><div class="setup-step-text">Hospede o arquivo no <strong>netlify.com/drop</strong> (arrastar e soltar!)</div></div>
     </div>
   </div>
@@ -242,23 +242,23 @@
 
 <div class="header">
   <div style="flex:1">
-    <div class="logo">🐺 EVO ELITE</div>
-    <div class="logo-sub">Pro Clubs · Sistema de Treinos</div>
+    <div class="logo">ðº EVO ELITE</div>
+    <div class="logo-sub">Pro Clubs Â· Sistema de Treinos</div>
   </div>
   <div style="display:flex;align-items:center;gap:8px">
-    <button class="admin-badge hidden admin-only" style="background:#1a1030;border:1px solid #3a1a6a;color:var(--text2);font-size:11px" id="btn-change-pw" onclick="document.getElementById('modal-change-pw').classList.add('open')">🔑 Senha</button>
+    <button class="admin-badge hidden admin-only" style="background:#1a1030;border:1px solid #3a1a6a;color:var(--text2);font-size:11px" id="btn-change-pw" onclick="document.getElementById('modal-change-pw').classList.add('open')">ð Senha</button>
     <button class="admin-badge locked" id="lock-btn" onclick="toggleLock()">
-      <span id="lock-icon">🔒</span><span id="lock-text">Admin</span>
+      <span id="lock-icon">ð</span><span id="lock-text">Admin</span>
     </button>
   </div>
 </div>
 
 <nav class="nav">
-  <button class="nav-btn active" onclick="showPage('dashboard',this)">📊 Dashboard</button>
-  <button class="nav-btn" onclick="showPage('jogadores',this)">👥 Jogadores</button>
-  <button class="nav-btn admin-only hidden" id="nav-novo-treino" onclick="showPage('novo-treino',this)">➕ Novo Treino</button>
-  <button class="nav-btn" onclick="showPage('historico',this)">📋 Histórico</button>
-  <button class="nav-btn" onclick="showPage('escalacao',this)">🟢 Escalação</button>
+  <button class="nav-btn active" onclick="showPage('dashboard',this)">ð Dashboard</button>
+  <button class="nav-btn" onclick="showPage('jogadores',this)">ð¥ Jogadores</button>
+  <button class="nav-btn admin-only hidden" id="nav-novo-treino" onclick="showPage('novo-treino',this)">â Novo Treino</button>
+  <button class="nav-btn" onclick="showPage('historico',this)">ð HistÃ³rico</button>
+  <button class="nav-btn" onclick="showPage('escalacao',this)">ð¢ EscalaÃ§Ã£o</button>
 </nav>
 
 <div class="main">
@@ -269,54 +269,54 @@
     <div class="grid4" style="margin-bottom:20px">
       <div class="stat-card"><div class="stat-num" id="stat-jogadores">0</div><div class="stat-label">Jogadores</div></div>
       <div class="stat-card"><div class="stat-num" id="stat-treinos">0</div><div class="stat-label">Treinos</div></div>
-      <div class="stat-card"><div class="stat-num" id="stat-gols">0</div><div class="stat-label">⚽ Gols no geral</div></div>
-      <div class="stat-card"><div class="stat-num" id="stat-assists">0</div><div class="stat-label">🅰️ Assists no geral</div></div>
+      <div class="stat-card"><div class="stat-num" id="stat-gols">0</div><div class="stat-label">â½ Gols no geral</div></div>
+      <div class="stat-card"><div class="stat-num" id="stat-assists">0</div><div class="stat-label">ð°ï¸ Assists no geral</div></div>
     </div>
     <div class="grid2">
       <div class="card">
-        <div class="card-title">🏆 Ranking — Artilheiros & Garçons</div>
-        <div id="ranking-container"><div class="empty"><div class="icon">📊</div>Nenhum treino registrado ainda</div></div>
+        <div class="card-title">ð Ranking â Artilheiros & GarÃ§ons</div>
+        <div id="ranking-container"><div class="empty"><div class="icon">ð</div>Nenhum treino registrado ainda</div></div>
       </div>
       <div class="card">
-        <div class="card-title">🛡️ Ranking — Defensores</div>
-        <div id="ranking-def-container"><div class="empty"><div class="icon">🛡️</div>Nenhum treino registrado ainda</div></div>
+        <div class="card-title">ð¡ï¸ Ranking â Defensores</div>
+        <div id="ranking-def-container"><div class="empty"><div class="icon">ð¡ï¸</div>Nenhum treino registrado ainda</div></div>
       </div>
     </div>
     <div class="card" style="margin-top:0">
-      <div class="card-title">📅 Últimos Treinos</div>
-      <div id="last-sessions-container"><div class="empty"><div class="icon">📋</div>Sem treinos registrados</div></div>
+      <div class="card-title">ð Ãltimos Treinos</div>
+      <div id="last-sessions-container"><div class="empty"><div class="icon">ð</div>Sem treinos registrados</div></div>
     </div>
     <div class="card" style="margin-top:0">
-      <div class="card-title">👥 Elenco do Time</div>
-      <div id="dashboard-elenco-container"><div class="empty"><div class="icon">👤</div>Nenhum jogador cadastrado</div></div>
+      <div class="card-title">ð¥ Elenco do Time</div>
+      <div id="dashboard-elenco-container"><div class="empty"><div class="icon">ð¤</div>Nenhum jogador cadastrado</div></div>
     </div>
   </div>
 
   <!-- ===== JOGADORES ===== -->
   <div id="page-jogadores" class="page">
     <div class="section-header">
-      <h2>👥 Jogadores</h2>
+      <h2>ð¥ Jogadores</h2>
       <button class="btn btn-primary admin-only hidden" id="btn-add-player" onclick="openAddPlayer()">+ Adicionar Jogador</button>
     </div>
     <div class="card" id="players-list-container">
-      <div class="empty"><div class="icon">👤</div>Nenhum jogador cadastrado</div>
+      <div class="empty"><div class="icon">ð¤</div>Nenhum jogador cadastrado</div>
     </div>
   </div>
 
   <!-- ===== NOVO TREINO ===== -->
   <div id="page-novo-treino" class="page">
-    <div class="section-header"><h2>➕ Registrar Treino</h2></div>
+    <div class="section-header"><h2>â Registrar Treino</h2></div>
     <div class="card" style="margin-bottom:16px">
-      <div class="card-title">📋 Informações do Treino</div>
+      <div class="card-title">ð InformaÃ§Ãµes do Treino</div>
       <div class="form-group">
         <label>Dia da Semana</label>
         <div class="day-selector" id="day-selector">
           <button class="day-btn" onclick="selectDay(this,'Segunda')">Seg</button>
-          <button class="day-btn" onclick="selectDay(this,'Terça')">Ter</button>
+          <button class="day-btn" onclick="selectDay(this,'TerÃ§a')">Ter</button>
           <button class="day-btn" onclick="selectDay(this,'Quarta')">Qua</button>
           <button class="day-btn" onclick="selectDay(this,'Quinta')">Qui</button>
           <button class="day-btn" onclick="selectDay(this,'Sexta')">Sex</button>
-          <button class="day-btn" onclick="selectDay(this,'Sábado')">Sáb</button>
+          <button class="day-btn" onclick="selectDay(this,'SÃ¡bado')">SÃ¡b</button>
           <button class="day-btn" onclick="selectDay(this,'Domingo')">Dom</button>
         </div>
       </div>
@@ -326,44 +326,44 @@
           <input type="date" id="treino-data">
         </div>
         <div class="form-group">
-          <label>Horário</label>
+          <label>HorÃ¡rio</label>
           <input type="time" id="treino-hora">
         </div>
       </div>
       <div class="form-group">
-        <label>Nome / Descrição (opcional)</label>
-        <input type="text" id="treino-nome" placeholder="Ex: Rachas da terça">
+        <label>Nome / DescriÃ§Ã£o (opcional)</label>
+        <input type="text" id="treino-nome" placeholder="Ex: Rachas da terÃ§a">
       </div>
     </div>
     <div class="card">
-      <div class="card-title">📊 Estatísticas dos Jogadores</div>
-      <div id="avaliacao-container"><div class="empty"><div class="icon">👥</div>Cadastre jogadores primeiro</div></div>
+      <div class="card-title">ð EstatÃ­sticas dos Jogadores</div>
+      <div id="avaliacao-container"><div class="empty"><div class="icon">ð¥</div>Cadastre jogadores primeiro</div></div>
       <div id="salvar-treino-area" style="margin-top:16px;text-align:right;display:none">
-        <button class="btn btn-primary" onclick="salvarTreino()">💾 Salvar Treino</button>
+        <button class="btn btn-primary" onclick="salvarTreino()">ð¾ Salvar Treino</button>
       </div>
     </div>
   </div>
 
-  <!-- ===== HISTÓRICO ===== -->
+  <!-- ===== HISTÃRICO ===== -->
   <div id="page-historico" class="page">
-    <div class="section-header"><h2>📋 Histórico de Treinos</h2></div>
+    <div class="section-header"><h2>ð HistÃ³rico de Treinos</h2></div>
     <div class="card" id="historico-container">
-      <div class="empty"><div class="icon">📋</div>Nenhum treino registrado</div>
+      <div class="empty"><div class="icon">ð</div>Nenhum treino registrado</div>
     </div>
   </div>
 
-  <!-- ===== ESCALAÇÃO ===== -->
+  <!-- ===== ESCALAÃÃO ===== -->
   <div id="page-escalacao" class="page">
     <div class="section-header">
-      <h2>🟢 Escalação</h2>
-      <div id="escal-status-badge"><span class="escal-status sem">Sem escalação</span></div>
+      <h2>ð¢ EscalaÃ§Ã£o</h2>
+      <div id="escal-status-badge"><span class="escal-status sem">Sem escalaÃ§Ã£o</span></div>
     </div>
 
-    <!-- VIEW: campo com formação -->
+    <!-- VIEW: campo com formaÃ§Ã£o -->
     <div class="card">
-      <!-- MATCH BANNER (adversário) -->
+      <!-- MATCH BANNER (adversÃ¡rio) -->
       <div id="escal-match-banner" style="display:none;background:linear-gradient(135deg,#1a0a30,#2e1a50);border-radius:12px;padding:16px;margin-bottom:16px;text-align:center">
-        <div style="font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px">⚽ Próximo Jogo</div>
+        <div style="font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px">â½ PrÃ³ximo Jogo</div>
         <div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap">
           <div style="text-align:center">
             <div style="font-size:13px;font-weight:800;color:#c084fc;letter-spacing:1px">EVO ELITE</div>
@@ -371,38 +371,38 @@
           </div>
           <div style="font-size:22px;font-weight:900;color:#fff;background:linear-gradient(135deg,#6b21a8,#9333ea);padding:6px 14px;border-radius:8px">VS</div>
           <div style="text-align:center">
-            <div id="escal-adversario-nome" style="font-size:13px;font-weight:800;color:#f0eef8;letter-spacing:1px">—</div>
-            <div style="font-size:10px;color:var(--text2);margin-top:2px">Adversário</div>
+            <div id="escal-adversario-nome" style="font-size:13px;font-weight:800;color:#f0eef8;letter-spacing:1px">â</div>
+            <div style="font-size:10px;color:var(--text2);margin-top:2px">AdversÃ¡rio</div>
           </div>
         </div>
         <div id="escal-match-info" style="font-size:12px;color:var(--text2);margin-top:10px"></div>
       </div>
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:16px">
         <div>
-          <div id="escal-titulo" style="font-size:16px;font-weight:800">Aguardando próxima escalação...</div>
+          <div id="escal-titulo" style="font-size:16px;font-weight:800">Aguardando prÃ³xima escalaÃ§Ã£o...</div>
           <div id="escal-subtitulo" style="font-size:13px;color:var(--text2);margin-top:2px"></div>
         </div>
         <div id="escal-formacao-tag"></div>
       </div>
       <div class="pitch-wrap">
         <div class="pitch-inner" id="escal-pitch-inner">
-          <div style="text-align:center;color:rgba(255,255,255,.35);padding:48px 0;font-size:13px">Nenhuma escalação publicada ainda</div>
+          <div style="text-align:center;color:rgba(255,255,255,.35);padding:48px 0;font-size:13px">Nenhuma escalaÃ§Ã£o publicada ainda</div>
         </div>
       </div>
     </div>
 
-    <!-- Convocação: lista de todos os jogadores -->
+    <!-- ConvocaÃ§Ã£o: lista de todos os jogadores -->
     <div class="card" id="escal-conv-card" style="display:none">
-      <div class="card-title">📣 Convocação</div>
+      <div class="card-title">ð£ ConvocaÃ§Ã£o</div>
       <div id="escal-conv-list"></div>
     </div>
 
-    <!-- ADMIN: criar/editar escalação -->
+    <!-- ADMIN: criar/editar escalaÃ§Ã£o -->
     <div class="card admin-only hidden" id="escal-admin-card">
-      <div class="card-title">⚙️ Definir Escalação <span style="font-size:12px;font-weight:400;color:var(--text2)">(somente admin)</span></div>
+      <div class="card-title">âï¸ Definir EscalaÃ§Ã£o <span style="font-size:12px;font-weight:400;color:var(--text2)">(somente admin)</span></div>
       <div class="form-group" style="margin-bottom:12px">
-        <label>🆚 Adversário (opcional)</label>
-        <input type="text" id="escal-adversario" placeholder="Ex: FC Real, Amigos do Zé...">
+        <label>ð AdversÃ¡rio (opcional)</label>
+        <input type="text" id="escal-adversario" placeholder="Ex: FC Real, Amigos do ZÃ©...">
       </div>
       <div class="grid2" style="margin-bottom:12px">
         <div class="form-group">
@@ -410,13 +410,13 @@
           <input type="date" id="escal-data">
         </div>
         <div class="form-group">
-          <label>Horário</label>
+          <label>HorÃ¡rio</label>
           <input type="time" id="escal-hora">
         </div>
       </div>
       <div class="grid2" style="margin-bottom:14px">
         <div class="form-group">
-          <label>Formação</label>
+          <label>FormaÃ§Ã£o</label>
           <select id="escal-formacao" onchange="renderSlotAssign()" style="width:100%;padding:10px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:14px;outline:none">
             <option value="4-3-3">4-3-3</option>
             <option value="4-2-3-1">4-2-3-1</option>
@@ -426,15 +426,15 @@
           </select>
         </div>
         <div class="form-group">
-          <label>Descrição (opcional)</label>
-          <input type="text" id="escal-desc" placeholder="Ex: Rachas de terça">
+          <label>DescriÃ§Ã£o (opcional)</label>
+          <input type="text" id="escal-desc" placeholder="Ex: Rachas de terÃ§a">
         </div>
       </div>
-      <div style="font-size:13px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">🎯 Atribuir Jogadores</div>
+      <div style="font-size:13px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">ð¯ Atribuir Jogadores</div>
       <div id="slot-assign-container"></div>
       <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap">
-        <button class="btn btn-primary" onclick="saveEscalacao(true)">🚀 Publicar Escalação</button>
-        <button class="btn" style="background:var(--bg3);border:1px solid var(--border);color:var(--text2)" onclick="saveEscalacao(false)">💾 Salvar Rascunho</button>
+        <button class="btn btn-primary" onclick="saveEscalacao(true)">ð Publicar EscalaÃ§Ã£o</button>
+        <button class="btn" style="background:var(--bg3);border:1px solid var(--border);color:var(--text2)" onclick="saveEscalacao(false)">ð¾ Salvar Rascunho</button>
       </div>
     </div>
   </div>
@@ -444,8 +444,8 @@
 <div class="modal-overlay" id="modal-player">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title">👤 Adicionar Jogador</div>
-      <button class="modal-close" onclick="closeModal('modal-player')">✕</button>
+      <div class="modal-title">ð¤ Adicionar Jogador</div>
+      <button class="modal-close" onclick="closeModal('modal-player')">â</button>
     </div>
     <div class="form-group">
       <label>Nome do Jogador</label>
@@ -453,27 +453,27 @@
     </div>
     <div class="grid2">
       <div class="form-group">
-        <label>Nº da Camisa</label>
+        <label>NÂº da Camisa</label>
         <input type="number" id="player-num-input" placeholder="Ex: 10" min="1" max="99" onkeydown="if(event.key==='Enter')addPlayer()">
       </div>
       <div class="form-group">
-        <label>Posição</label>
+        <label>PosiÃ§Ã£o</label>
         <select id="player-pos-input">
-        <option value="GK">🧤 Goleiro (GK)</option>
-        <option value="ZAG">🛡️ Zagueiro (ZAG)</option>
-        <option value="LD">↗️ Lateral Direito (LD)</option>
-        <option value="LE">↖️ Lateral Esquerdo (LE)</option>
-        <option value="VOL">⚙️ Volante (VOL)</option>
-        <option value="MEI">🔄 Meia (MEI)</option>
-        <option value="ATA">⚡ Atacante (ATA)</option>
-        <option value="PE">🎯 Ponta Esquerda (PE)</option>
-        <option value="PD">🎯 Ponta Direita (PD)</option>
-        <option value="CA">👑 Centroavante (CA)</option>
+        <option value="GK">ð§¤ Goleiro (GK)</option>
+        <option value="ZAG">ð¡ï¸ Zagueiro (ZAG)</option>
+        <option value="LD">âï¸ Lateral Direito (LD)</option>
+        <option value="LE">âï¸ Lateral Esquerdo (LE)</option>
+        <option value="VOL">âï¸ Volante (VOL)</option>
+        <option value="MEI">ð Meia (MEI)</option>
+        <option value="ATA">â¡ Atacante (ATA)</option>
+        <option value="PE">ð¯ Ponta Esquerda (PE)</option>
+        <option value="PD">ð¯ Ponta Direita (PD)</option>
+        <option value="CA">ð Centroavante (CA)</option>
       </select>
       </div>
     </div>
     </div>
-    <button class="btn btn-primary" style="width:100%" onclick="addPlayer()">✅ Adicionar</button>
+    <button class="btn btn-primary" style="width:100%" onclick="addPlayer()">â Adicionar</button>
   </div>
 </div>
 
@@ -482,11 +482,11 @@
   <div class="modal">
     <div class="modal-header">
       <div class="modal-title" id="modal-treino-title">Detalhes do Treino</div>
-      <button class="modal-close" onclick="closeModal('modal-treino-detalhe')">✕</button>
+      <button class="modal-close" onclick="closeModal('modal-treino-detalhe')">â</button>
     </div>
     <div id="modal-treino-body"></div>
     <div style="margin-top:16px;text-align:right" class="admin-only hidden" id="btn-delete-treino-wrap">
-      <button class="btn btn-danger btn-sm" onclick="deleteTreino()">🗑️ Excluir Treino</button>
+      <button class="btn btn-danger btn-sm" onclick="deleteTreino()">ðï¸ Excluir Treino</button>
     </div>
   </div>
 </div>
@@ -494,9 +494,9 @@
 <!-- LOCK OVERLAY -->
 <div class="lock-overlay" id="lock-overlay">
   <div class="lock-box">
-    <div class="lock-icon">🔐</div>
-    <div class="lock-title" id="lock-box-title">Área Admin</div>
-    <div class="lock-subtitle" id="lock-box-sub">Digite a senha para acessar as funções de edição</div>
+    <div class="lock-icon">ð</div>
+    <div class="lock-title" id="lock-box-title">Ãrea Admin</div>
+    <div class="lock-subtitle" id="lock-box-sub">Digite a senha para acessar as funÃ§Ãµes de ediÃ§Ã£o</div>
     <div class="form-group" style="text-align:left">
       <label id="lock-input-label">Senha</label>
       <input type="password" id="lock-password-input" placeholder="Digite a senha..." onkeydown="if(event.key==='Enter')submitLock()">
@@ -505,7 +505,7 @@
       <label>Confirmar Senha</label>
       <input type="password" id="lock-password-confirm" placeholder="Repita a senha...">
     </div>
-    <button class="btn btn-primary" style="width:100%" onclick="submitLock()" id="lock-submit-btn">🔓 Entrar</button>
+    <button class="btn btn-primary" style="width:100%" onclick="submitLock()" id="lock-submit-btn">ð Entrar</button>
     <div class="lock-error" id="lock-error"></div>
     <button style="background:none;border:none;color:var(--text2);font-size:12px;cursor:pointer;margin-top:12px" onclick="closeModal('lock-overlay')">Cancelar</button>
   </div>
@@ -515,8 +515,8 @@
 <div class="modal-overlay" id="modal-change-pw">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title">🔑 Alterar Senha</div>
-      <button class="modal-close" onclick="closeModal('modal-change-pw')">✕</button>
+      <div class="modal-title">ð Alterar Senha</div>
+      <button class="modal-close" onclick="closeModal('modal-change-pw')">â</button>
     </div>
     <div class="form-group">
       <label>Senha Atual</label>
@@ -531,16 +531,16 @@
       <input type="password" id="pw-confirm" placeholder="Repita a nova senha">
     </div>
     <div id="pw-error" style="color:var(--red);font-size:13px;margin-bottom:10px"></div>
-    <button class="btn btn-primary" style="width:100%" onclick="changePassword()">✅ Salvar Nova Senha</button>
+    <button class="btn btn-primary" style="width:100%" onclick="changePassword()">â Salvar Nova Senha</button>
   </div>
 </div>
 
-<!-- MODAL RELATÓRIO JOGADOR -->
+<!-- MODAL RELATÃRIO JOGADOR -->
 <div class="modal-overlay" id="modal-report">
   <div class="modal modal-wide">
     <div class="modal-header">
-      <div class="modal-title">📄 Relatório do Jogador</div>
-      <button class="modal-close" onclick="closeModal('modal-report')">✕</button>
+      <div class="modal-title">ð RelatÃ³rio do Jogador</div>
+      <button class="modal-close" onclick="closeModal('modal-report')">â</button>
     </div>
     <div id="modal-report-body"></div>
   </div>
@@ -548,65 +548,65 @@
 
 <script>
 // =================== CONFIG ===================
-// Posições ofensivas (gols + assists em destaque) vs defensivas (roubos + divididas)
+// PosiÃ§Ãµes ofensivas (gols + assists em destaque) vs defensivas (roubos + divididas)
 const POS_DEF = ['GK','ZAG','LD','LE'];
 const POS_MID = ['VOL','MEI'];
 const POS_ATK = ['ATA','PE','PD','CA'];
 
-// Cores por posição
+// Cores por posiÃ§Ã£o
 const POS_COLORS = {
   GK:'#e67e22',ZAG:'#3498db',LD:'#2980b9',LE:'#2980b9',
   VOL:'#27ae60',MEI:'#8e44ad',ATA:'#e74c3c',PE:'#c0392b',PD:'#c0392b',CA:'#e74c3c'
 };
 
-// Quais stats mostrar por tipo de posição
+// Quais stats mostrar por tipo de posiÃ§Ã£o
 function getStats(pos) {
   if (pos === 'GK') return [
-    { key:'defesas',   icon:'🧤', label:'Defesas',           primary:true  },
-    { key:'divididas', icon:'⚔️', label:'Divididas Ganhas',  primary:true  },
-    { key:'roubos',    icon:'💥', label:'Roubo de Bola',     primary:true  },
-    { key:'gols',      icon:'⚽', label:'Gols',              primary:false },
-    { key:'assists',   icon:'🅰️', label:'Assistências',      primary:false },
+    { key:'defesas',   icon:'ð§¤', label:'Defesas',           primary:true  },
+    { key:'divididas', icon:'âï¸', label:'Divididas Ganhas',  primary:true  },
+    { key:'roubos',    icon:'ð¥', label:'Roubo de Bola',     primary:true  },
+    { key:'gols',      icon:'â½', label:'Gols',              primary:false },
+    { key:'assists',   icon:'ð°ï¸', label:'AssistÃªncias',      primary:false },
   ];
   if (pos === 'ZAG') return [
-    { key:'roubos',    icon:'💥', label:'Roubo de Bola',     primary:true  },
-    { key:'divididas', icon:'⚔️', label:'Divididas Ganhas',  primary:true  },
-    { key:'gols',      icon:'⚽', label:'Gols',              primary:false },
-    { key:'assists',   icon:'🅰️', label:'Assistências',      primary:false },
+    { key:'roubos',    icon:'ð¥', label:'Roubo de Bola',     primary:true  },
+    { key:'divididas', icon:'âï¸', label:'Divididas Ganhas',  primary:true  },
+    { key:'gols',      icon:'â½', label:'Gols',              primary:false },
+    { key:'assists',   icon:'ð°ï¸', label:'AssistÃªncias',      primary:false },
   ];
   if (pos === 'LD' || pos === 'LE') return [
-    { key:'cruzamentos', icon:'🎯', label:'Cruzamentos',       primary:true  },
-    { key:'roubos',      icon:'💥', label:'Roubo de Bola',     primary:true  },
-    { key:'divididas',   icon:'⚔️', label:'Divididas Ganhas',  primary:true  },
-    { key:'gols',        icon:'⚽', label:'Gols',              primary:false },
-    { key:'assists',     icon:'🅰️', label:'Assistências',      primary:false },
+    { key:'cruzamentos', icon:'ð¯', label:'Cruzamentos',       primary:true  },
+    { key:'roubos',      icon:'ð¥', label:'Roubo de Bola',     primary:true  },
+    { key:'divididas',   icon:'âï¸', label:'Divididas Ganhas',  primary:true  },
+    { key:'gols',        icon:'â½', label:'Gols',              primary:false },
+    { key:'assists',     icon:'ð°ï¸', label:'AssistÃªncias',      primary:false },
   ];
   if (pos === 'VOL') return [
-    { key:'gols',      icon:'⚽', label:'Gols',              primary:true  },
-    { key:'assists',   icon:'🅰️', label:'Assistências',      primary:true  },
-    { key:'roubos',    icon:'💥', label:'Roubo de Bola',     primary:true  },
-    { key:'divididas', icon:'⚔️', label:'Divididas Ganhas',  primary:false },
+    { key:'gols',      icon:'â½', label:'Gols',              primary:true  },
+    { key:'assists',   icon:'ð°ï¸', label:'AssistÃªncias',      primary:true  },
+    { key:'roubos',    icon:'ð¥', label:'Roubo de Bola',     primary:true  },
+    { key:'divididas', icon:'âï¸', label:'Divididas Ganhas',  primary:false },
   ];
   if (pos === 'MEI') return [
-    { key:'gols',        icon:'⚽', label:'Gols',              primary:true  },
-    { key:'assists',     icon:'🅰️', label:'Assistências',      primary:true  },
-    { key:'cruzamentos', icon:'🎯', label:'Cruzamentos',       primary:true  },
-    { key:'roubos',      icon:'💥', label:'Roubo de Bola',     primary:false },
-    { key:'divididas',   icon:'⚔️', label:'Divididas Ganhas',  primary:false },
+    { key:'gols',        icon:'â½', label:'Gols',              primary:true  },
+    { key:'assists',     icon:'ð°ï¸', label:'AssistÃªncias',      primary:true  },
+    { key:'cruzamentos', icon:'ð¯', label:'Cruzamentos',       primary:true  },
+    { key:'roubos',      icon:'ð¥', label:'Roubo de Bola',     primary:false },
+    { key:'divididas',   icon:'âï¸', label:'Divididas Ganhas',  primary:false },
   ];
   if (pos === 'PE' || pos === 'PD') return [
-    { key:'gols',        icon:'⚽', label:'Gols',              primary:true  },
-    { key:'assists',     icon:'🅰️', label:'Assistências',      primary:true  },
-    { key:'cruzamentos', icon:'🎯', label:'Cruzamentos',       primary:true  },
-    { key:'roubos',      icon:'💥', label:'Roubo de Bola',     primary:false },
-    { key:'divididas',   icon:'⚔️', label:'Divididas Ganhas',  primary:false },
+    { key:'gols',        icon:'â½', label:'Gols',              primary:true  },
+    { key:'assists',     icon:'ð°ï¸', label:'AssistÃªncias',      primary:true  },
+    { key:'cruzamentos', icon:'ð¯', label:'Cruzamentos',       primary:true  },
+    { key:'roubos',      icon:'ð¥', label:'Roubo de Bola',     primary:false },
+    { key:'divididas',   icon:'âï¸', label:'Divididas Ganhas',  primary:false },
   ];
   // ATA, CA
   return [
-    { key:'gols',      icon:'⚽', label:'Gols',              primary:true  },
-    { key:'assists',   icon:'🅰️', label:'Assistências',      primary:true  },
-    { key:'roubos',    icon:'💥', label:'Roubo de Bola',     primary:false },
-    { key:'divididas', icon:'⚔️', label:'Divididas Ganhas',  primary:false },
+    { key:'gols',      icon:'â½', label:'Gols',              primary:true  },
+    { key:'assists',   icon:'ð°ï¸', label:'AssistÃªncias',      primary:true  },
+    { key:'roubos',    icon:'ð¥', label:'Roubo de Bola',     primary:false },
+    { key:'divididas', icon:'âï¸', label:'Divididas Ganhas',  primary:false },
   ];
 }
 
@@ -633,12 +633,12 @@ function saveFirebaseConfig() {
     // strip "const firebaseConfig = " wrapper if pasted from Firebase console
     clean = clean.replace(/^[\s\S]*?=\s*/, '').replace(/;?\s*$/, '');
     const cfg = JSON.parse(clean);
-    if (!cfg.databaseURL) { errEl.textContent = '⚠️ Faltou o campo databaseURL. Verifique se o Realtime Database foi criado.'; return; }
+    if (!cfg.databaseURL) { errEl.textContent = 'â ï¸ Faltou o campo databaseURL. Verifique se o Realtime Database foi criado.'; return; }
     localStorage.setItem(FB_CFG_KEY, JSON.stringify(cfg));
     document.getElementById('setup-overlay').style.display = 'none';
     initFirebase(cfg);
   } catch(e) {
-    errEl.textContent = '❌ JSON inválido. Copie exatamente o objeto firebaseConfig do Firebase Console.';
+    errEl.textContent = 'â JSON invÃ¡lido. Copie exatamente o objeto firebaseConfig do Firebase Console.';
   }
 }
 
@@ -669,7 +669,7 @@ function initFirebase(cfg) {
       }
       applyAdminUI();
     }, err => {
-      setSyncStatus('red', 'Erro de conexão');
+      setSyncStatus('red', 'Erro de conexÃ£o');
     });
 
   } catch(e) {
@@ -722,7 +722,7 @@ function formatDate(d) { if(!d) return ''; const [y,m,dd]=d.split('-'); return `
 function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 function showAlert(msg) {
   const a = document.getElementById('alert-area');
-  a.innerHTML = `<div class="alert alert-success">✅ ${msg}</div>`;
+  a.innerHTML = `<div class="alert alert-success">â ${msg}</div>`;
   setTimeout(()=>a.innerHTML='', 3000);
 }
 
@@ -734,8 +734,8 @@ function selectDay(btn, day) {
 
 // Auto-select today's day on load; se hoje for dia preferido salvo, prioriza ele
 function autoSelectToday() {
-  const days = ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
-  const dayMap = {'Segunda':0,'Terça':1,'Quarta':2,'Quinta':3,'Sexta':4,'Sábado':5,'Domingo':6};
+  const days = ['Domingo','Segunda','TerÃ§a','Quarta','Quinta','Sexta','SÃ¡bado'];
+  const dayMap = {'Segunda':0,'TerÃ§a':1,'Quarta':2,'Quinta':3,'Sexta':4,'SÃ¡bado':5,'Domingo':6};
   const todayIdx = new Date().getDay();
   const todayName = days[todayIdx];
   const btns = document.querySelectorAll('.day-btn');
@@ -795,25 +795,60 @@ function getPlayerTotals(pid) {
 function renderPlayers() {
   const c = document.getElementById('players-list-container');
   if (!appData.players.length) { c.innerHTML='<div class="empty"><div class="icon">👤</div>Nenhum jogador cadastrado</div>'; return; }
-  c.innerHTML = appData.players.map(p => {
-    const t = getPlayerTotals(p.id);
-    const color = POS_COLORS[p.pos] || '#4f8ef7';
-    return `<div class="player-row">
-      <div class="player-avatar" style="background:linear-gradient(135deg,${color}99,${color}44)">${getAvatarLabel(p)}</div>
-      <div style="flex:1">
-        <div class="player-name">${p.name} ${p.num!=null?`<span style="color:var(--text2);font-size:12px;font-weight:400">#${p.num}</span>`:''}</div>
-        <div class="player-pos-text">${p.pos} · ${t.treinos} treino(s)</div>
-      </div>
-      <div style="display:flex;gap:6px;flex-wrap:wrap;margin-right:10px">
-        ${p.pos==='GK' ? `<span class="tag tag-save">🧤 ${t.defesas}</span>` : `<span class="tag tag-goal">⚽ ${t.gols}</span><span class="tag tag-assist">🅰️ ${t.assists}</span>`}
-        ${['LD','LE','PE','PD','MEI'].includes(p.pos) ? `<span class="tag tag-cross">🎯 ${t.cruzamentos}</span>` : ''}
-        <span class="tag tag-steal">💥 ${t.roubos}</span>
-        <span class="tag tag-duel">⚔️ ${t.divididas}</span>
-      </div>
-      <button class="btn btn-sm" style="background:#1a1030;border:1px solid #9333ea55;color:#c084fc" onclick="openReport(${p.id})">📄 Relatório</button>
-      <button class="btn btn-danger btn-sm admin-only ${isAdmin()?'':'hidden'}" onclick="removePlayer(${p.id})">✕</button>
+
+  const PITCH_ZONES = [
+    { positions: ['PE','ATA','CA','PD'], zone: 'Ataque' },
+    { positions: ['MEI'],               zone: 'Meia' },
+    { positions: ['VOL'],               zone: 'Volante' },
+    { positions: ['ZAG','LD','LE'],     zone: 'Defesa' },
+    { positions: ['GK'],                zone: 'Goleiro' }
+  ];
+
+  let rows = '';
+  PITCH_ZONES.forEach(z => {
+    const players = appData.players.filter(p => z.positions.includes(p.pos));
+    if (!players.length) return;
+    rows += '<div class="pitch-row">' + players.map(p => {
+      const color = POS_COLORS[p.pos] || '#4f8ef7';
+      const t = getPlayerTotals(p.id);
+      const mainStat = p.pos === 'GK' ? `🧤 ${t.defesas}` : `⚽${t.gols} 🅰️${t.assists}`;
+      return `<div class="pitch-slot" onclick="openReport(${p.id})" style="cursor:pointer;position:relative">
+        ${isAdmin() ? `<button onclick="event.stopPropagation();removePlayer(${p.id})" style="position:absolute;top:-4px;right:0px;width:16px;height:16px;border-radius:50%;background:#e74c3c;border:none;color:#fff;font-size:9px;cursor:pointer;z-index:2;display:flex;align-items:center;justify-content:center;padding:0;line-height:1">✕</button>` : ''}
+        <div class="pitch-avatar-w" style="background:linear-gradient(135deg,${color}cc,${color}66)">${getAvatarLabel(p)}</div>
+        <div class="pitch-pname">${p.name.split(' ')[0]}${p.num!=null?' <span style="opacity:.55;font-weight:400">#'+p.num+'</span>':''}</div>
+        <div class="pitch-plabel">${p.pos}</div>
+        <div style="font-size:8px;color:rgba(255,255,255,.5);margin-top:1px;text-align:center">${mainStat}</div>
+      </div>`;
+    }).join('') + '</div>';
+  });
+
+  const allPos = PITCH_ZONES.flatMap(z => z.positions);
+  const other = appData.players.filter(p => !allPos.includes(p.pos));
+  if (other.length) {
+    rows += '<div class="pitch-row">' + other.map(p => {
+      const color = POS_COLORS[p.pos] || '#4f8ef7';
+      return `<div class="pitch-slot" onclick="openReport(${p.id})" style="cursor:pointer">
+        <div class="pitch-avatar-w" style="background:linear-gradient(135deg,${color}cc,${color}66)">${getAvatarLabel(p)}</div>
+        <div class="pitch-pname">${p.name.split(' ')[0]}</div>
+        <div class="pitch-plabel">${p.pos}</div>
+      </div>`;
+    }).join('') + '</div>';
+  }
+
+  const countBadges = PITCH_ZONES.map(z => {
+    const cnt = appData.players.filter(p => z.positions.includes(p.pos)).length;
+    if (!cnt) return '';
+    return `<span style="font-size:11px;color:var(--text2);background:#1a1030;border-radius:6px;padding:3px 8px">${z.zone}: <b style="color:var(--text)">${cnt}</b></span>`;
+  }).filter(Boolean).join('');
+
+  c.innerHTML = `
+    <div class="pitch-wrap">
+      <div class="pitch-inner">${rows}</div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid #2e1a50">
+      ${countBadges}
+      <span style="font-size:11px;color:var(--text2);margin-left:auto">Total: <b style="color:var(--accent2)">${appData.players.length}</b> jogadores</span>
     </div>`;
-  }).join('');
 }
 
 // =================== NOVO TREINO ===================
@@ -824,7 +859,7 @@ function renderNovoTreino() {
 
   const c = document.getElementById('avaliacao-container');
   if (!appData.players.length) {
-    c.innerHTML = '<div class="empty"><div class="icon">👥</div>Cadastre jogadores primeiro</div>';
+    c.innerHTML = '<div class="empty"><div class="icon">ð¥</div>Cadastre jogadores primeiro</div>';
     document.getElementById('salvar-treino-area').style.display = 'none';
     return;
   }
@@ -841,7 +876,7 @@ function renderNovoTreino() {
         </div>
         <label style="display:flex;align-items:center;gap:8px;cursor:pointer;user-select:none">
           <input type="checkbox" class="presence-check" id="pres-${p.id}" checked onchange="togglePresenca(${p.id})">
-          <span id="pres-lbl-${p.id}" style="font-size:13px;font-weight:600;color:var(--green)">✅ Presente</span>
+          <span id="pres-lbl-${p.id}" style="font-size:13px;font-weight:600;color:var(--green)">â Presente</span>
         </label>
       </div>
       <div class="eval-body" id="eb-${p.id}">
@@ -853,8 +888,8 @@ function renderNovoTreino() {
           </div>`).join('')}
         </div>
         <div class="form-group" style="margin-bottom:0">
-          <label>📝 Observação</label>
-          <textarea id="obs-${p.id}" placeholder="Comentário opcional..."></textarea>
+          <label>ð ObservaÃ§Ã£o</label>
+          <textarea id="obs-${p.id}" placeholder="ComentÃ¡rio opcional..."></textarea>
         </div>
       </div>
     </div>`;
@@ -865,7 +900,7 @@ function togglePresenca(pid) {
   const checked = document.getElementById('pres-'+pid).checked;
   const lbl = document.getElementById('pres-lbl-'+pid);
   const body = document.getElementById('eb-'+pid);
-  lbl.textContent = checked ? '✅ Presente' : '❌ Ausente';
+  lbl.textContent = checked ? 'â Presente' : 'â Ausente';
   lbl.style.color = checked ? 'var(--green)' : 'var(--red)';
   body.classList.toggle('disabled', !checked);
 }
@@ -877,7 +912,7 @@ function salvarTreino() {
     (selectedDay ? 'Treino de ' + selectedDay : 'Treino');
   if (!data) { alert('Selecione a data!'); return; }
 
-  // salva o dia preferido para próximo treino
+  // salva o dia preferido para prÃ³ximo treino
   if (selectedDay) {
     try { localStorage.setItem('evoelite_dia_preferido', selectedDay); } catch(e){}
   }
@@ -921,25 +956,25 @@ function renderDashboard() {
   // Ranking atacantes/meias (gols + assists)
   const rankC = document.getElementById('ranking-container');
   if (!appData.sessions.length) {
-    rankC.innerHTML='<div class="empty"><div class="icon">📊</div>Sem dados ainda</div>';
+    rankC.innerHTML='<div class="empty"><div class="icon">ð</div>Sem dados ainda</div>';
   } else {
     const ranked = appData.players.map(p=>{
       const t = getPlayerTotals(p.id);
       return {...p, ...t, pts: t.gols*3 + t.assists*2};
     }).filter(p=>p.gols+p.assists>0).sort((a,b)=>b.pts-a.pts);
-    if (!ranked.length) { rankC.innerHTML='<div class="empty"><div class="icon">⚽</div>Nenhum gol/assist ainda</div>'; }
+    if (!ranked.length) { rankC.innerHTML='<div class="empty"><div class="icon">â½</div>Nenhum gol/assist ainda</div>'; }
     else {
       rankC.innerHTML = `<table class="rank-table"><thead><tr>
-        <th>#</th><th>Jogador</th><th>Pos.</th><th>⚽ Gols</th><th>🅰️ Assist</th>
+        <th>#</th><th>Jogador</th><th>Pos.</th><th>â½ Gols</th><th>ð°ï¸ Assist</th>
       </tr></thead><tbody>
         ${ranked.map((p,i)=>`<tr>
-          <td class="rank-pos ${i===0?'gold':i===1?'silver':i===2?'bronze':''}">${i+1}º</td>
+          <td class="rank-pos ${i===0?'gold':i===1?'silver':i===2?'bronze':''}">${i+1}Âº</td>
           <td><div style="display:flex;align-items:center;gap:8px">
             <div class="player-avatar" style="width:26px;height:26px;font-size:11px;background:linear-gradient(135deg,${POS_COLORS[p.pos]||'#4f8ef7'}99,${POS_COLORS[p.pos]||'#4f8ef7'}33)">${getAvatarLabel(p)}</div>
             ${p.name}</div></td>
           <td><span class="tag">${p.pos}</span></td>
-          <td><span class="tag tag-goal">⚽ ${p.gols}</span></td>
-          <td><span class="tag tag-assist">🅰️ ${p.assists}</span></td>
+          <td><span class="tag tag-goal">â½ ${p.gols}</span></td>
+          <td><span class="tag tag-assist">ð°ï¸ ${p.assists}</span></td>
         </tr>`).join('')}
       </tbody></table>`;
     }
@@ -948,33 +983,33 @@ function renderDashboard() {
   // Ranking defensores (roubos + divididas + defesas GK)
   const rankD = document.getElementById('ranking-def-container');
   if (!appData.sessions.length) {
-    rankD.innerHTML='<div class="empty"><div class="icon">🛡️</div>Sem dados ainda</div>';
+    rankD.innerHTML='<div class="empty"><div class="icon">ð¡ï¸</div>Sem dados ainda</div>';
   } else {
     const ranked = appData.players.map(p=>{
       const t = getPlayerTotals(p.id);
       return {...p, ...t, pts: t.defesas*3 + t.roubos*2 + t.divididas + t.cruzamentos};
     }).filter(p=>p.roubos+p.divididas+p.defesas+p.cruzamentos>0).sort((a,b)=>b.pts-a.pts);
-    if (!ranked.length) { rankD.innerHTML='<div class="empty"><div class="icon">🛡️</div>Nenhum dado defensivo ainda</div>'; }
+    if (!ranked.length) { rankD.innerHTML='<div class="empty"><div class="icon">ð¡ï¸</div>Nenhum dado defensivo ainda</div>'; }
     else {
       rankD.innerHTML = `<table class="rank-table"><thead><tr>
-        <th>#</th><th>Jogador</th><th>Pos.</th><th>🧤/🎯/💥</th><th>⚔️ Divididas</th>
+        <th>#</th><th>Jogador</th><th>Pos.</th><th>ð§¤/ð¯/ð¥</th><th>âï¸ Divididas</th>
       </tr></thead><tbody>
         ${ranked.map((p,i)=>`<tr>
-          <td class="rank-pos ${i===0?'gold':i===1?'silver':i===2?'bronze':''}">${i+1}º</td>
+          <td class="rank-pos ${i===0?'gold':i===1?'silver':i===2?'bronze':''}">${i+1}Âº</td>
           <td><div style="display:flex;align-items:center;gap:8px">
             <div class="player-avatar" style="width:26px;height:26px;font-size:11px;background:linear-gradient(135deg,${POS_COLORS[p.pos]||'#4f8ef7'}99,${POS_COLORS[p.pos]||'#4f8ef7'}33)">${getAvatarLabel(p)}</div>
             ${p.name}</div></td>
           <td><span class="tag">${p.pos}</span></td>
-          <td>${p.pos==='GK' ? `<span class="tag tag-save">🧤 ${p.defesas}</span>` : ['LD','LE','PE','PD','MEI'].includes(p.pos) ? `<span class="tag tag-cross">🎯 ${p.cruzamentos}</span> <span class="tag tag-steal">💥 ${p.roubos}</span>` : `<span class="tag tag-steal">💥 ${p.roubos}</span>`}</td>
-          <td><span class="tag tag-duel">⚔️ ${p.divididas}</span></td>
+          <td>${p.pos==='GK' ? `<span class="tag tag-save">ð§¤ ${p.defesas}</span>` : ['LD','LE','PE','PD','MEI'].includes(p.pos) ? `<span class="tag tag-cross">ð¯ ${p.cruzamentos}</span> <span class="tag tag-steal">ð¥ ${p.roubos}</span>` : `<span class="tag tag-steal">ð¥ ${p.roubos}</span>`}</td>
+          <td><span class="tag tag-duel">âï¸ ${p.divididas}</span></td>
         </tr>`).join('')}
       </tbody></table>`;
     }
   }
 
-  // Últimos treinos
+  // Ãltimos treinos
   const lc = document.getElementById('last-sessions-container');
-  if (!appData.sessions.length) { lc.innerHTML='<div class="empty"><div class="icon">📋</div>Sem treinos</div>'; }
+  if (!appData.sessions.length) { lc.innerHTML='<div class="empty"><div class="icon">ð</div>Sem treinos</div>'; }
   else {
   const sorted = [...appData.sessions].sort((a,b)=>new Date(b.data)-new Date(a.data)).slice(0,5);
   lc.innerHTML = sorted.map(s=>{
@@ -983,7 +1018,7 @@ function renderDashboard() {
     const assists = s.avaliacoes.reduce((sum,a)=>sum+(a.assists||0),0);
     const roubos = s.avaliacoes.reduce((sum,a)=>sum+(a.roubos||0),0);
     const label = s.dia ? `${s.dia} ${formatDate(s.data)}` : formatDate(s.data);
-    const horaLabel = s.hora ? ` · 🕐 ${s.hora}` : '';
+    const horaLabel = s.hora ? ` Â· ð ${s.hora}` : '';
     return `<div class="session-item" onclick="showTreino(${s.id})">
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px">
         <div>
@@ -991,25 +1026,25 @@ function renderDashboard() {
           <div class="session-title">${s.nome}</div>
         </div>
         <div style="display:flex;gap:6px;flex-wrap:wrap">
-          <span class="tag">👥 ${present}</span>
-          <span class="tag tag-goal">⚽ ${gols}</span>
-          <span class="tag tag-assist">🅰️ ${assists}</span>
-          <span class="tag tag-steal">💥 ${roubos}</span>
+          <span class="tag">ð¥ ${present}</span>
+          <span class="tag tag-goal">â½ ${gols}</span>
+          <span class="tag tag-assist">ð°ï¸ ${assists}</span>
+          <span class="tag tag-steal">ð¥ ${roubos}</span>
         </div>
       </div>
     </div>`;
   }).join('');
-  } // fim else sessões
+  } // fim else sessÃµes
 
-  // Elenco do time — agrupado por posição
+  // Elenco do time â agrupado por posiÃ§Ã£o
   const ec = document.getElementById('dashboard-elenco-container');
   if (!appData.players.length) {
-    ec.innerHTML = '<div class="empty"><div class="icon">👤</div>Nenhum jogador cadastrado</div>';
+    ec.innerHTML = '<div class="empty"><div class="icon">ð¤</div>Nenhum jogador cadastrado</div>';
   } else {
     const posOrder = ['GK','ZAG','LD','LE','VOL','MEI','PE','PD','ATA','CA'];
     const posLabel = { GK:'Goleiro', ZAG:'Zagueiro', LD:'Lateral Direito', LE:'Lateral Esquerdo', VOL:'Volante', MEI:'Meia', PE:'Ponta Esquerda', PD:'Ponta Direita', ATA:'Atacante', CA:'Centroavante' };
 
-    // agrupa jogadores por posição
+    // agrupa jogadores por posiÃ§Ã£o
     const grupos = {};
     appData.players.forEach(p => {
       const pos = p.pos || 'Outro';
@@ -1036,7 +1071,7 @@ function renderDashboard() {
           <div style="display:flex;flex-wrap:wrap;gap:8px">
             ${jogadores.map(p => {
               const totals = getPlayerTotals(p.id);
-              return `<div style="display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid ${color}44;border-left:3px solid ${color};border-radius:10px;padding:8px 14px;min-width:155px;cursor:pointer;transition:background .2s" onclick="openReport(${p.id})" onmouseenter="this.style.background='var(--bg2)'" onmouseleave="this.style.background='var(--bg3)'" title="Ver relatório de ${p.name}">
+              return `<div style="display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid ${color}44;border-left:3px solid ${color};border-radius:10px;padding:8px 14px;min-width:155px;cursor:pointer;transition:background .2s" onclick="openReport(${p.id})" onmouseenter="this.style.background='var(--bg2)'" onmouseleave="this.style.background='var(--bg3)'" title="Ver relatÃ³rio de ${p.name}">
                 <div class="player-avatar" style="width:34px;height:34px;font-size:13px;flex-shrink:0;background:linear-gradient(135deg,${color}99,${color}44)">${getAvatarLabel(p)}</div>
                 <div>
                   <div style="font-weight:700;font-size:13px">${p.name}${p.num!=null?` <span style="color:var(--text2);font-size:11px;font-weight:400">#${p.num}</span>`:''}</div>
@@ -1052,10 +1087,10 @@ function renderDashboard() {
   }
 }
 
-// =================== HISTÓRICO ===================
+// =================== HISTÃRICO ===================
 function renderHistorico() {
   const c = document.getElementById('historico-container');
-  if (!appData.sessions.length) { c.innerHTML='<div class="empty"><div class="icon">📋</div>Nenhum treino registrado</div>'; return; }
+  if (!appData.sessions.length) { c.innerHTML='<div class="empty"><div class="icon">ð</div>Nenhum treino registrado</div>'; return; }
   const sorted = [...appData.sessions].sort((a,b)=>new Date(b.data)-new Date(a.data));
   c.innerHTML = sorted.map(s=>{
     const present = s.avaliacoes.filter(a=>a.presente).length;
@@ -1063,8 +1098,8 @@ function renderHistorico() {
     const assists = s.avaliacoes.reduce((sum,a)=>sum+(a.assists||0),0);
     const roubos = s.avaliacoes.reduce((sum,a)=>sum+(a.roubos||0),0);
     const divididas = s.avaliacoes.reduce((sum,a)=>sum+(a.divididas||0),0);
-    const label = s.dia ? `${s.dia} · ${formatDate(s.data)}` : formatDate(s.data);
-    const horaLabel = s.hora ? ` · 🕐 ${s.hora}` : '';
+    const label = s.dia ? `${s.dia} Â· ${formatDate(s.data)}` : formatDate(s.data);
+    const horaLabel = s.hora ? ` Â· ð ${s.hora}` : '';
     return `<div class="session-item" onclick="showTreino(${s.id})">
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px">
         <div>
@@ -1072,11 +1107,11 @@ function renderHistorico() {
           <div class="session-title">${s.nome}</div>
         </div>
         <div style="display:flex;gap:6px;flex-wrap:wrap">
-          <span class="tag">👥 ${present}</span>
-          <span class="tag tag-goal">⚽ ${gols}</span>
-          <span class="tag tag-assist">🅰️ ${assists}</span>
-          <span class="tag tag-steal">💥 ${roubos}</span>
-          <span class="tag tag-duel">⚔️ ${divididas}</span>
+          <span class="tag">ð¥ ${present}</span>
+          <span class="tag tag-goal">â½ ${gols}</span>
+          <span class="tag tag-assist">ð°ï¸ ${assists}</span>
+          <span class="tag tag-steal">ð¥ ${roubos}</span>
+          <span class="tag tag-duel">âï¸ ${divididas}</span>
         </div>
       </div>
     </div>`;
@@ -1088,16 +1123,16 @@ function showTreino(sid) {
   const s = appData.sessions.find(s=>s.id===sid);
   if (!s) return;
   currentDeleteId = sid;
-  const horaStr = s.hora ? ` 🕐 ${s.hora}` : '';
-  const label = s.dia ? `${s.nome} · ${s.dia} ${formatDate(s.data)}${horaStr}` : `${s.nome} · ${formatDate(s.data)}${horaStr}`;
+  const horaStr = s.hora ? ` ð ${s.hora}` : '';
+  const label = s.dia ? `${s.nome} Â· ${s.dia} ${formatDate(s.data)}${horaStr}` : `${s.nome} Â· ${formatDate(s.data)}${horaStr}`;
   document.getElementById('modal-treino-title').textContent = label;
 
   const present = s.avaliacoes.filter(a=>a.presente);
   const absent = s.avaliacoes.filter(a=>!a.presente);
 
   let html = `<div style="margin-bottom:14px;display:flex;gap:8px;flex-wrap:wrap">
-    <span class="tag">✅ ${present.length} presentes</span>
-    <span class="tag">❌ ${absent.length} ausentes</span>
+    <span class="tag">â ${present.length} presentes</span>
+    <span class="tag">â ${absent.length} ausentes</span>
   </div>`;
 
   html += present.sort((a,b)=>(b.gols*3+b.assists*2)-(a.gols*3+a.assists*2)).map(a=>{
@@ -1108,17 +1143,17 @@ function showTreino(sid) {
         <div><div style="font-weight:700">${a.playerName}</div><div style="color:var(--text2);font-size:11px">${a.playerPos}</div></div>
       </div>
       <div style="display:flex;gap:8px;flex-wrap:wrap">
-        ${a.playerPos==='GK' ? `<span class="tag tag-save">🧤 ${a.defesas||0} defesa(s)</span>` : `<span class="tag tag-goal">⚽ ${a.gols} gol(s)</span><span class="tag tag-assist">🅰️ ${a.assists} assist(s)</span>`}
-        ${(a.cruzamentos||0)>0 ? `<span class="tag tag-cross">🎯 ${a.cruzamentos} cruzamento(s)</span>` : ''}
-        <span class="tag tag-steal">💥 ${a.roubos} roubo(s)</span>
-        <span class="tag tag-duel">⚔️ ${a.divididas} dividida(s)</span>
+        ${a.playerPos==='GK' ? `<span class="tag tag-save">ð§¤ ${a.defesas||0} defesa(s)</span>` : `<span class="tag tag-goal">â½ ${a.gols} gol(s)</span><span class="tag tag-assist">ð°ï¸ ${a.assists} assist(s)</span>`}
+        ${(a.cruzamentos||0)>0 ? `<span class="tag tag-cross">ð¯ ${a.cruzamentos} cruzamento(s)</span>` : ''}
+        <span class="tag tag-steal">ð¥ ${a.roubos} roubo(s)</span>
+        <span class="tag tag-duel">âï¸ ${a.divididas} dividida(s)</span>
       </div>
-      ${a.obs?`<div style="margin-top:8px;padding:8px;background:var(--bg2);border-radius:6px;font-size:12px;color:var(--text2)">📝 ${a.obs}</div>`:''}
+      ${a.obs?`<div style="margin-top:8px;padding:8px;background:var(--bg2);border-radius:6px;font-size:12px;color:var(--text2)">ð ${a.obs}</div>`:''}
     </div>`;
   }).join('');
 
   if (absent.length) {
-    html += `<div style="color:var(--text2);font-size:12px;margin-top:6px">❌ Ausentes: ${absent.map(a=>a.playerName).join(', ')}</div>`;
+    html += `<div style="color:var(--text2);font-size:12px;margin-top:6px">â Ausentes: ${absent.map(a=>a.playerName).join(', ')}</div>`;
   }
 
   document.getElementById('modal-treino-body').innerHTML = html;
@@ -1138,7 +1173,7 @@ const PW_KEY = 'evoelite_pw';
 const SESSION_KEY = 'evoelite_session';
 
 function hashPw(pw) {
-  // simple obfuscation — not cryptographic but enough for local use
+  // simple obfuscation â not cryptographic but enough for local use
   let h = 0;
   for (let i = 0; i < pw.length; i++) { h = (Math.imul(31, h) + pw.charCodeAt(i)) | 0; }
   return 'h' + Math.abs(h).toString(36) + pw.length;
@@ -1152,7 +1187,7 @@ function toggleLock() {
     // logout
     sessionStorage.removeItem(SESSION_KEY);
     applyAdminUI();
-    showAlert('Sessão admin encerrada.');
+    showAlert('SessÃ£o admin encerrada.');
   } else {
     openLockOverlay();
   }
@@ -1160,9 +1195,9 @@ function toggleLock() {
 
 function openLockOverlay() {
   const firstTime = !hasPassword();
-  document.getElementById('lock-box-title').textContent = firstTime ? '🔑 Definir Senha Admin' : '🔐 Área Admin';
-  document.getElementById('lock-box-sub').textContent = firstTime ? 'Crie uma senha para proteger as edições' : 'Digite a senha para acessar as funções de edição';
-  document.getElementById('lock-submit-btn').textContent = firstTime ? '✅ Criar Senha' : '🔓 Entrar';
+  document.getElementById('lock-box-title').textContent = firstTime ? 'ð Definir Senha Admin' : 'ð Ãrea Admin';
+  document.getElementById('lock-box-sub').textContent = firstTime ? 'Crie uma senha para proteger as ediÃ§Ãµes' : 'Digite a senha para acessar as funÃ§Ãµes de ediÃ§Ã£o';
+  document.getElementById('lock-submit-btn').textContent = firstTime ? 'â Criar Senha' : 'ð Entrar';
   document.getElementById('lock-confirm-wrap').style.display = firstTime ? 'block' : 'none';
   document.getElementById('lock-password-input').value = '';
   document.getElementById('lock-error').textContent = '';
@@ -1178,25 +1213,25 @@ function submitLock() {
   if (!pw) { err.textContent = 'Digite a senha!'; return; }
 
   if (!hasPassword()) {
-    // first time — set password
+    // first time â set password
     const confirm = document.getElementById('lock-password-confirm').value;
     if (pw.length < 4) { err.textContent = 'Senha deve ter pelo menos 4 caracteres.'; return; }
-    if (pw !== confirm) { err.textContent = 'As senhas não coincidem!'; return; }
+    if (pw !== confirm) { err.textContent = 'As senhas nÃ£o coincidem!'; return; }
     localStorage.setItem(PW_KEY, hashPw(pw));
     sessionStorage.setItem(SESSION_KEY, '1');
     closeModal('lock-overlay');
     applyAdminUI();
-    showAlert('Senha criada! Você está no modo Admin.');
+    showAlert('Senha criada! VocÃª estÃ¡ no modo Admin.');
   } else {
     if (hashPw(pw) !== localStorage.getItem(PW_KEY)) {
-      err.textContent = '❌ Senha incorreta!';
+      err.textContent = 'â Senha incorreta!';
       document.getElementById('lock-password-input').value = '';
       return;
     }
     sessionStorage.setItem(SESSION_KEY, '1');
     closeModal('lock-overlay');
     applyAdminUI();
-    showAlert('✅ Modo Admin ativado!');
+    showAlert('â Modo Admin ativado!');
   }
 }
 
@@ -1206,21 +1241,21 @@ function changePassword() {
   const cf = document.getElementById('pw-confirm').value;
   const err = document.getElementById('pw-error');
   err.textContent = '';
-  if (!isAdmin()) { err.textContent = 'Você precisa estar logado como Admin.'; return; }
-  if (hashPw(old) !== localStorage.getItem(PW_KEY)) { err.textContent = '❌ Senha atual incorreta!'; return; }
+  if (!isAdmin()) { err.textContent = 'VocÃª precisa estar logado como Admin.'; return; }
+  if (hashPw(old) !== localStorage.getItem(PW_KEY)) { err.textContent = 'â Senha atual incorreta!'; return; }
   if (nw.length < 4) { err.textContent = 'Nova senha deve ter pelo menos 4 caracteres.'; return; }
-  if (nw !== cf) { err.textContent = 'As senhas não coincidem!'; return; }
+  if (nw !== cf) { err.textContent = 'As senhas nÃ£o coincidem!'; return; }
   localStorage.setItem(PW_KEY, hashPw(nw));
   closeModal('modal-change-pw');
-  showAlert('✅ Senha alterada com sucesso!');
+  showAlert('â Senha alterada com sucesso!');
 }
 
 function applyAdminUI() {
   const admin = isAdmin();
   const btn = document.getElementById('lock-btn');
   btn.className = 'admin-badge ' + (admin ? 'unlocked' : 'locked');
-  document.getElementById('lock-icon').textContent = admin ? '🔓' : '🔒';
-  document.getElementById('lock-text').textContent = admin ? 'Admin ✓' : 'Admin';
+  document.getElementById('lock-icon').textContent = admin ? 'ð' : 'ð';
+  document.getElementById('lock-text').textContent = admin ? 'Admin â' : 'Admin';
   document.querySelectorAll('.admin-only').forEach(el => {
     el.classList.toggle('hidden', !admin);
   });
@@ -1275,10 +1310,10 @@ function openReport(pid) {
     const bStats = stats.filter(st => (best.a[st.key]||0) > 0).map(st =>
       `<span class="tag" style="margin-right:4px">${st.icon} ${best.a[st.key]}</span>`).join('');
     bestHtml = `<div class="best-session" style="margin-bottom:16px">
-      <div class="best-label">⭐ Melhor Treino</div>
-      <div style="font-weight:700;margin-bottom:6px">${best.s.nome} · ${bl}</div>
+      <div class="best-label">â­ Melhor Treino</div>
+      <div style="font-weight:700;margin-bottom:6px">${best.s.nome} Â· ${bl}</div>
       <div>${bStats}</div>
-      ${best.a.obs ? `<div style="margin-top:8px;font-size:12px;color:var(--text2)">📝 "${best.a.obs}"</div>` : ''}
+      ${best.a.obs ? `<div style="margin-top:8px;font-size:12px;color:var(--text2)">ð "${best.a.obs}"</div>` : ''}
     </div>`;
   }
 
@@ -1287,30 +1322,30 @@ function openReport(pid) {
       <div class="report-avatar" style="background:linear-gradient(135deg,${color}99,${color}44)">${getAvatarLabel(player)}</div>
       <div>
         <div class="report-name">${player.name} ${player.num!=null?`<span style="color:var(--text2);font-size:14px;font-weight:400">#${player.num}</span>`:''}</div>
-        <div class="report-meta">${player.pos} · ${presente.length} de ${total} treino(s) · ${freq}% freq.</div>
+        <div class="report-meta">${player.pos} Â· ${presente.length} de ${total} treino(s) Â· ${freq}% freq.</div>
         <div class="freq-bar-wrap" style="width:220px;margin-top:8px"><div class="freq-bar-fill" style="width:${freq}%"></div></div>
       </div>
     </div>
 
     <div style="margin-bottom:16px">
-      <div style="font-size:13px;font-weight:700;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px">📊 Totais na Temporada</div>
+      <div style="font-size:13px;font-weight:700;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px">ð Totais na Temporada</div>
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(90px,1fr));gap:10px">${statDisplay}</div>
     </div>
 
     ${bestHtml}
 
     ${presente.length ? `<div>
-      <div style="font-size:13px;font-weight:700;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px">📋 Histórico por Treino</div>
+      <div style="font-size:13px;font-weight:700;color:var(--text2);margin-bottom:10px;text-transform:uppercase;letter-spacing:.5px">ð HistÃ³rico por Treino</div>
       <div style="overflow-x:auto"><table class="hist-table">
         <thead><tr><th>Data</th><th>Treino</th>${histHead}</tr></thead>
         <tbody>${histRows}</tbody>
       </table></div>
-    </div>` : '<div class="empty"><div class="icon">📋</div>Nenhuma participação ainda</div>'}
+    </div>` : '<div class="empty"><div class="icon">ð</div>Nenhuma participaÃ§Ã£o ainda</div>'}
   `;
   document.getElementById('modal-report').classList.add('open');
 }
 
-// =================== ESCALAÇÃO ===================
+// =================== ESCALAÃÃO ===================
 const FORMATIONS = {
   '4-3-3':   { rows:[['PE','CA','PD'],['MEI1','VOL','MEI2'],['LE','ZAG1','ZAG2','LD'],['GK']], labels:{PE:'PE',CA:'CA',PD:'PD',MEI1:'MEI',VOL:'VOL',MEI2:'MEI',LE:'LE',ZAG1:'ZAG',ZAG2:'ZAG',LD:'LD',GK:'GK'} },
   '4-2-3-1': { rows:[['CA'],['PE','MEI','PD'],['VOL1','VOL2'],['LE','ZAG1','ZAG2','LD'],['GK']], labels:{CA:'CA',PE:'PE',MEI:'MEI',PD:'PD',VOL1:'VOL',VOL2:'VOL',LE:'LE',ZAG1:'ZAG',ZAG2:'ZAG',LD:'LD',GK:'GK'} },
@@ -1325,29 +1360,29 @@ function renderEscalacao() {
   const convCard = document.getElementById('escal-conv-card');
 
   if (!escal || !escal.publicada) {
-    badge.innerHTML = escal ? '<span class="escal-status draft">📝 Rascunho</span>' : '<span class="escal-status sem">Sem escalação</span>';
+    badge.innerHTML = escal ? '<span class="escal-status draft">ð Rascunho</span>' : '<span class="escal-status sem">Sem escalaÃ§Ã£o</span>';
     document.getElementById('escal-match-banner').style.display = 'none';
-    document.getElementById('escal-titulo').textContent = 'Aguardando próxima escalação...';
+    document.getElementById('escal-titulo').textContent = 'Aguardando prÃ³xima escalaÃ§Ã£o...';
     document.getElementById('escal-subtitulo').textContent = '';
     document.getElementById('escal-formacao-tag').innerHTML = '';
-    document.getElementById('escal-pitch-inner').innerHTML = '<div style="text-align:center;color:rgba(255,255,255,.35);padding:48px 0;font-size:13px">Nenhuma escalação publicada ainda</div>';
+    document.getElementById('escal-pitch-inner').innerHTML = '<div style="text-align:center;color:rgba(255,255,255,.35);padding:48px 0;font-size:13px">Nenhuma escalaÃ§Ã£o publicada ainda</div>';
     convCard.style.display = 'none';
   } else {
-    badge.innerHTML = '<span class="escal-status pub">✅ Publicada</span>';
+    badge.innerHTML = '<span class="escal-status pub">â Publicada</span>';
     const dataFmt = escal.data ? formatDate(escal.data) : '';
     const banner = document.getElementById('escal-match-banner');
     if (escal.adversario) {
       banner.style.display = 'block';
       document.getElementById('escal-adversario-nome').textContent = escal.adversario.toUpperCase();
-      const infoParts = [dataFmt, escal.hora ? '🕐 ' + escal.hora : ''].filter(Boolean);
-      document.getElementById('escal-match-info').textContent = infoParts.join(' · ');
-      document.getElementById('escal-titulo').textContent = escal.descricao || 'Escalação do Jogo';
+      const infoParts = [dataFmt, escal.hora ? 'ð ' + escal.hora : ''].filter(Boolean);
+      document.getElementById('escal-match-info').textContent = infoParts.join(' Â· ');
+      document.getElementById('escal-titulo').textContent = escal.descricao || 'EscalaÃ§Ã£o do Jogo';
     } else {
       banner.style.display = 'none';
       document.getElementById('escal-titulo').textContent = escal.descricao || ('Treino ' + escal.formacao);
     }
-    const partes = escal.adversario ? [] : [dataFmt, escal.hora ? '🕐 ' + escal.hora : ''].filter(Boolean);
-    document.getElementById('escal-subtitulo').textContent = partes.join(' · ');
+    const partes = escal.adversario ? [] : [dataFmt, escal.hora ? 'ð ' + escal.hora : ''].filter(Boolean);
+    document.getElementById('escal-subtitulo').textContent = partes.join(' Â· ');
     document.getElementById('escal-formacao-tag').innerHTML = '<span style="background:#1a0a30;border:1px solid #9333ea44;color:#c084fc;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:700">' + escal.formacao + '</span>';
     renderPitch(escal);
     renderConvocados(escal);
@@ -1379,7 +1414,7 @@ function renderPitch(escal) {
         (player
           ? '<div class="pitch-avatar-w" style="background:linear-gradient(135deg,' + color + 'cc,' + color + '66)">' + getAvatarLabel(player) + '</div>' +
             '<div class="pitch-pname">' + player.name.split(' ')[0] + '</div>'
-          : '<div class="pitch-empty">＋</div><div class="pitch-pname" style="color:rgba(255,255,255,.3)">—</div>') +
+          : '<div class="pitch-empty">ï¼</div><div class="pitch-pname" style="color:rgba(255,255,255,.3)">â</div>') +
         '<div class="pitch-plabel">' + posLabel + '</div></div>';
     }).join('') + '</div>'
   ).join('');
@@ -1406,8 +1441,8 @@ function renderConvocados(escal) {
       '<div style="flex:1"><div style="font-weight:700;font-size:14px">' + p.name + (p.num!=null ? ' <span style="color:var(--text2);font-size:11px">#'+p.num+'</span>' : '') + '</div>' +
       '<div style="font-size:11px;color:var(--text2)">' + p.pos + '</div></div>' +
       '<div>' + (conv
-        ? '<span style="background:#1a3a1a;color:#2ecc71;border:1px solid #2ecc7155;padding:4px 12px;border-radius:12px;font-size:12px;font-weight:800">✅ Convocado' + (posLabel ? ' · ' + posLabel : '') + '</span>'
-        : '<span style="background:#2e1a1a;color:#e74c3c;border:1px solid #e74c3c55;padding:4px 12px;border-radius:12px;font-size:12px;font-weight:700">❌ Fora</span>') +
+        ? '<span style="background:#1a3a1a;color:#2ecc71;border:1px solid #2ecc7155;padding:4px 12px;border-radius:12px;font-size:12px;font-weight:800">â Convocado' + (posLabel ? ' Â· ' + posLabel : '') + '</span>'
+        : '<span style="background:#2e1a1a;color:#e74c3c;border:1px solid #e74c3c55;padding:4px 12px;border-radius:12px;font-size:12px;font-weight:700">â Fora</span>') +
       '</div></div>';
   }).join('');
 }
@@ -1425,7 +1460,7 @@ function renderSlotAssign() {
     return '<div class="slot-row">' +
       '<span class="slot-badge" style="background:' + color + '22;color:' + color + '">' + posLabel + '</span>' +
       '<select id="slot-' + key + '" style="flex:1;padding:8px 10px;background:var(--bg2);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:13px;outline:none">' +
-      '<option value="">— Nenhum —</option>' +
+      '<option value="">â Nenhum â</option>' +
       appData.players.map(p => '<option value="' + p.id + '"' + (curPid==p.id?' selected':'') + '>' + p.name + ' (' + p.pos + ')</option>').join('') +
       '</select></div>';
   }).join('');
@@ -1447,7 +1482,7 @@ function saveEscalacao(publicar) {
     formacao, slots, publicada: publicar, updatedAt: Date.now()
   };
   saveData();
-  showAlert(publicar ? '🚀 Escalação publicada!' : '💾 Rascunho salvo!');
+  showAlert(publicar ? 'ð EscalaÃ§Ã£o publicada!' : 'ð¾ Rascunho salvo!');
   renderEscalacao();
 }
 
