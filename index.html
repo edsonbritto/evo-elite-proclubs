@@ -361,6 +361,22 @@
 
     <!-- VIEW: campo com formação -->
     <div class="card">
+      <!-- MATCH BANNER (adversário) -->
+      <div id="escal-match-banner" style="display:none;background:linear-gradient(135deg,#1a0a30,#2e1a50);border-radius:12px;padding:16px;margin-bottom:16px;text-align:center">
+        <div style="font-size:11px;color:var(--text2);text-transform:uppercase;letter-spacing:2px;margin-bottom:8px">⚽ Próximo Jogo</div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap">
+          <div style="text-align:center">
+            <div style="font-size:13px;font-weight:800;color:#c084fc;letter-spacing:1px">EVO ELITE</div>
+            <div style="font-size:10px;color:var(--text2);margin-top:2px">Pro Clubs</div>
+          </div>
+          <div style="font-size:22px;font-weight:900;color:#fff;background:linear-gradient(135deg,#6b21a8,#9333ea);padding:6px 14px;border-radius:8px">VS</div>
+          <div style="text-align:center">
+            <div id="escal-adversario-nome" style="font-size:13px;font-weight:800;color:#f0eef8;letter-spacing:1px">—</div>
+            <div style="font-size:10px;color:var(--text2);margin-top:2px">Adversário</div>
+          </div>
+        </div>
+        <div id="escal-match-info" style="font-size:12px;color:var(--text2);margin-top:10px"></div>
+      </div>
       <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:16px">
         <div>
           <div id="escal-titulo" style="font-size:16px;font-weight:800">Aguardando próxima escalação...</div>
@@ -384,9 +400,13 @@
     <!-- ADMIN: criar/editar escalação -->
     <div class="card admin-only hidden" id="escal-admin-card">
       <div class="card-title">⚙️ Definir Escalação <span style="font-size:12px;font-weight:400;color:var(--text2)">(somente admin)</span></div>
+      <div class="form-group" style="margin-bottom:12px">
+        <label>🆚 Adversário (opcional)</label>
+        <input type="text" id="escal-adversario" placeholder="Ex: FC Real, Amigos do Zé...">
+      </div>
       <div class="grid2" style="margin-bottom:12px">
         <div class="form-group">
-          <label>Data</label>
+          <label>Data do Jogo</label>
           <input type="date" id="escal-data">
         </div>
         <div class="form-group">
@@ -1306,6 +1326,7 @@ function renderEscalacao() {
 
   if (!escal || !escal.publicada) {
     badge.innerHTML = escal ? '<span class="escal-status draft">📝 Rascunho</span>' : '<span class="escal-status sem">Sem escalação</span>';
+    document.getElementById('escal-match-banner').style.display = 'none';
     document.getElementById('escal-titulo').textContent = 'Aguardando próxima escalação...';
     document.getElementById('escal-subtitulo').textContent = '';
     document.getElementById('escal-formacao-tag').innerHTML = '';
@@ -1314,8 +1335,18 @@ function renderEscalacao() {
   } else {
     badge.innerHTML = '<span class="escal-status pub">✅ Publicada</span>';
     const dataFmt = escal.data ? formatDate(escal.data) : '';
-    document.getElementById('escal-titulo').textContent = escal.descricao || ('Treino ' + escal.formacao);
-    const partes = [dataFmt, escal.hora ? '🕐 ' + escal.hora : ''].filter(Boolean);
+    const banner = document.getElementById('escal-match-banner');
+    if (escal.adversario) {
+      banner.style.display = 'block';
+      document.getElementById('escal-adversario-nome').textContent = escal.adversario.toUpperCase();
+      const infoParts = [dataFmt, escal.hora ? '🕐 ' + escal.hora : ''].filter(Boolean);
+      document.getElementById('escal-match-info').textContent = infoParts.join(' · ');
+      document.getElementById('escal-titulo').textContent = escal.descricao || 'Escalação do Jogo';
+    } else {
+      banner.style.display = 'none';
+      document.getElementById('escal-titulo').textContent = escal.descricao || ('Treino ' + escal.formacao);
+    }
+    const partes = escal.adversario ? [] : [dataFmt, escal.hora ? '🕐 ' + escal.hora : ''].filter(Boolean);
     document.getElementById('escal-subtitulo').textContent = partes.join(' · ');
     document.getElementById('escal-formacao-tag').innerHTML = '<span style="background:#1a0a30;border:1px solid #9333ea44;color:#c084fc;padding:4px 14px;border-radius:20px;font-size:13px;font-weight:700">' + escal.formacao + '</span>';
     renderPitch(escal);
@@ -1325,6 +1356,7 @@ function renderEscalacao() {
 
   if (isAdmin()) {
     const today = new Date().toISOString().split('T')[0];
+    document.getElementById('escal-adversario').value = (escal && escal.adversario) || '';
     document.getElementById('escal-data').value = (escal && escal.data) || today;
     document.getElementById('escal-hora').value = (escal && escal.hora) || '';
     document.getElementById('escal-formacao').value = (escal && escal.formacao) || '4-3-3';
@@ -1408,6 +1440,7 @@ function saveEscalacao(publicar) {
     if (sel && sel.value) slots[key] = parseInt(sel.value);
   });
   appData.escalacao = {
+    adversario: document.getElementById('escal-adversario').value.trim(),
     data: document.getElementById('escal-data').value,
     hora: document.getElementById('escal-hora').value,
     descricao: document.getElementById('escal-desc').value.trim(),
