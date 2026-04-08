@@ -181,6 +181,33 @@
   .escal-status.sem { background:var(--bg3); color:var(--text2); border:1px solid var(--border); }
   .slot-row { display:flex; align-items:center; gap:10px; padding:8px 12px; background:var(--bg3); border-radius:8px; margin-bottom:6px; }
   .slot-badge { width:40px; text-align:center; font-size:11px; font-weight:800; padding:3px 0; border-radius:6px; flex-shrink:0; }
+  /* DASHBOARD ELENCO */
+  .roster-board { background: linear-gradient(180deg, #0f3d25 0%, #166534 55%, #12472c 100%); border: 1px solid rgba(255,255,255,.08); border-radius: 18px; padding: 18px; position: relative; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(255,255,255,.04), 0 18px 40px rgba(0,0,0,.18); }
+  .roster-board::before { content: ""; position: absolute; inset: 14px; border: 2px solid rgba(255,255,255,.14); border-radius: 14px; pointer-events: none; }
+  .roster-board::after { content: ""; position: absolute; left: 50%; top: 32px; bottom: 32px; width: 2px; background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.22), rgba(255,255,255,.08)); transform: translateX(-50%); pointer-events: none; }
+  .roster-center-circle { position: absolute; left: 50%; top: 50%; width: 110px; height: 110px; border: 2px solid rgba(255,255,255,.14); border-radius: 50%; transform: translate(-50%, -50%); pointer-events: none; }
+  .roster-zones { position: relative; z-index: 1; display: grid; gap: 16px; }
+  .roster-zone { min-height: 78px; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 10px; }
+  .roster-zone-label { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; color: rgba(255,255,255,.58); }
+  .roster-zone-players { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; width: 100%; }
+  .roster-player { min-width: 110px; max-width: 140px; padding: 10px 12px; border-radius: 14px; border: 1px solid rgba(255,255,255,.14); background: linear-gradient(180deg, rgba(8,6,15,.26), rgba(8,6,15,.5)); color: #fff; text-align: center; cursor: pointer; transition: transform .18s, border-color .18s, background .18s, box-shadow .18s; backdrop-filter: blur(4px); }
+  .roster-player:hover { transform: translateY(-2px) scale(1.01); border-color: rgba(255,255,255,.32); background: linear-gradient(180deg, rgba(8,6,15,.34), rgba(8,6,15,.62)); box-shadow: 0 10px 22px rgba(0,0,0,.2); }
+  .roster-player-top { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 6px; }
+  .roster-player-avatar { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; border: 2px solid rgba(255,255,255,.24); box-shadow: 0 4px 10px rgba(0,0,0,.22); }
+  .roster-player-pos { font-size: 10px; font-weight: 800; letter-spacing: 1px; color: rgba(255,255,255,.72); text-transform: uppercase; }
+  .roster-player-name { font-size: 12px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .roster-player-meta { font-size: 10px; color: rgba(255,255,255,.7); margin-top: 4px; }
+  .roster-summary { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+  .roster-summary-chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; background: var(--bg3); border: 1px solid rgba(255,255,255,.06); font-size: 11px; color: var(--text2); }
+  .roster-summary-chip b { color: var(--text); }
+  .roster-summary-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; box-shadow: 0 0 10px currentColor; }
+  @media(max-width:700px) {
+    .roster-board { padding: 14px; }
+    .roster-board::after { top: 22px; bottom: 22px; }
+    .roster-center-circle { width: 86px; height: 86px; }
+    .roster-zone { min-height: 66px; }
+    .roster-player { min-width: 96px; max-width: 124px; padding: 9px 10px; }
+  }
   /* FIREBASE SETUP SCREEN */
   .setup-overlay { position: fixed; inset: 0; background: var(--bg); z-index: 3000; display: flex; align-items: center; justify-content: center; padding: 16px; }
   .setup-box { background: var(--bg2); border: 1px solid #3a1a6a; border-radius: 20px; padding: 32px; width: 100%; max-width: 520px; }
@@ -1182,54 +1209,70 @@ function renderDashboard() {
   }).join('');
   } // fim else sessões
 
-  // Elenco do time — agrupado por posição
+  // Elenco do time — campinho visual
   const ec = document.getElementById('dashboard-elenco-container');
   if (!appData.players.length) {
     ec.innerHTML = '<div class="empty"><div class="icon">👤</div>Nenhum jogador cadastrado</div>';
   } else {
     const posOrder = ['GK','ZAG','LD','LE','VOL','MEI','PE','PD','ATA','CA'];
     const posLabel = { GK:'Goleiro', ZAG:'Zagueiro', LD:'Lateral Direito', LE:'Lateral Esquerdo', VOL:'Volante', MEI:'Meia', PE:'Ponta Esquerda', PD:'Ponta Direita', ATA:'Atacante', CA:'Centroavante' };
-
-    // agrupa jogadores por posição
     const grupos = {};
     appData.players.forEach(p => {
       const pos = p.pos || 'Outro';
       if (!grupos[pos]) grupos[pos] = [];
       grupos[pos].push(p);
     });
-    // ordena jogadores dentro de cada grupo por nome
     Object.values(grupos).forEach(g => g.sort((a,b) => a.name.localeCompare(b.name)));
+    const rosterZones = [
+      { label: 'Ataque', positions: ['PE','ATA','CA','PD'] },
+      { label: 'Meio', positions: ['MEI','VOL'] },
+      { label: 'Defesa', positions: ['LE','ZAG','LD'] },
+      { label: 'Gol', positions: ['GK'] }
+    ];
 
-    // renderiza grupo por grupo na ordem correta
-    const posComJogadores = posOrder.filter(p => grupos[p] && grupos[p].length);
-    const extra = Object.keys(grupos).filter(p => !posOrder.includes(p));
-
-    const renderGrupo = (pos) => {
-      const jogadores = grupos[pos];
-      const color = POS_COLORS[pos] || '#4f8ef7';
-      const label = posLabel[pos] || pos;
-      return `
-        <div style="margin-bottom:14px">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-            <span style="font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:${color};background:${color}22;padding:3px 10px;border-radius:20px">${label}</span>
-            <span style="font-size:11px;color:var(--text2)">${jogadores.length} jogador${jogadores.length>1?'es':''}</span>
-          </div>
-          <div style="display:flex;flex-wrap:wrap;gap:8px">
-            ${jogadores.map(p => {
-              const totals = getPlayerTotals(p.id);
-              return `<div style="display:flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid ${color}44;border-left:3px solid ${color};border-radius:10px;padding:8px 14px;min-width:155px;cursor:pointer;transition:background .2s" onclick="openReport(${p.id})" onmouseenter="this.style.background='var(--bg2)'" onmouseleave="this.style.background='var(--bg3)'" title="Ver relatório de ${p.name}">
-                <div class="player-avatar" style="width:34px;height:34px;font-size:13px;flex-shrink:0;background:linear-gradient(135deg,${color}99,${color}44)">${getAvatarLabel(p)}</div>
-                <div>
-                  <div style="font-weight:700;font-size:13px">${p.name}${p.num!=null?` <span style="color:var(--text2);font-size:11px;font-weight:400">#${p.num}</span>`:''}</div>
-                  <div style="font-size:11px;color:var(--text2);margin-top:2px">${totals.treinos} treino(s)</div>
-                </div>
-              </div>`;
-            }).join('')}
-          </div>
-        </div>`;
+    const renderPlayerCard = (p) => {
+      const color = POS_COLORS[p.pos] || '#4f8ef7';
+      const totals = getPlayerTotals(p.id);
+      const destaque = p.pos === 'GK'
+        ? `🧤 ${totals.defesas || 0} defesas`
+        : `⚽ ${totals.gols || 0} · 🅰️ ${totals.assists || 0}`;
+      return `<button class="roster-player" onclick="openReport(${p.id})" title="Ver relatório de ${p.name}">
+        <div class="roster-player-top">
+          <div class="roster-player-avatar" style="background:linear-gradient(135deg,${color}bb,${color}55)">${getAvatarLabel(p)}</div>
+          <div class="roster-player-pos">${p.pos}</div>
+        </div>
+        <div class="roster-player-name">${p.name}</div>
+        <div class="roster-player-meta">${p.num != null ? '#' + p.num + ' · ' : ''}${destaque}</div>
+      </button>`;
     };
 
-    ec.innerHTML = [...posComJogadores, ...extra].map(renderGrupo).join('');
+    const zoneHtml = rosterZones.map(zone => {
+      const jogadores = zone.positions.flatMap(pos => grupos[pos] || []);
+      if (!jogadores.length) return '';
+      return `<div class="roster-zone">
+        <div class="roster-zone-label">${zone.label}</div>
+        <div class="roster-zone-players">${jogadores.map(renderPlayerCard).join('')}</div>
+      </div>`;
+    }).join('');
+
+    const extra = Object.keys(grupos).filter(p => !posOrder.includes(p));
+    const summaryHtml = [...posOrder, ...extra].filter(pos => grupos[pos] && grupos[pos].length).map(pos => {
+      const color = POS_COLORS[pos] || '#4f8ef7';
+      return `<span class="roster-summary-chip">
+        <span class="roster-summary-dot" style="background:${color};color:${color}"></span>
+        ${posLabel[pos] || pos}: <b>${grupos[pos].length}</b>
+      </span>`;
+    }).join('');
+
+    ec.innerHTML = `
+      <div class="roster-board">
+        <div class="roster-center-circle"></div>
+        <div class="roster-zones">${zoneHtml}</div>
+      </div>
+      <div class="roster-summary">
+        ${summaryHtml}
+        <span class="roster-summary-chip">Total: <b>${appData.players.length}</b> jogadores</span>
+      </div>`;
   }
 }
 
