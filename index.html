@@ -197,6 +197,13 @@
   .roster-player-pos { font-size: 10px; font-weight: 800; letter-spacing: 1px; color: rgba(255,255,255,.72); text-transform: uppercase; }
   .roster-player-name { font-size: 12px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .roster-player-meta { font-size: 10px; color: rgba(255,255,255,.7); margin-top: 4px; }
+  .roster-player-rich { position: relative; min-width: 150px; max-width: 180px; padding: 12px; border-radius: 16px; border: 1px solid rgba(255,255,255,.14); background: linear-gradient(180deg, rgba(8,6,15,.22), rgba(8,6,15,.58)); color: #fff; cursor: pointer; transition: transform .18s, border-color .18s, background .18s, box-shadow .18s; backdrop-filter: blur(5px); }
+  .roster-player-rich:hover { transform: translateY(-3px); border-color: rgba(255,255,255,.34); background: linear-gradient(180deg, rgba(8,6,15,.32), rgba(8,6,15,.7)); box-shadow: 0 14px 26px rgba(0,0,0,.22); }
+  .roster-player-remove { position: absolute; top: -6px; right: -6px; width: 22px; height: 22px; border-radius: 50%; border: 1px solid rgba(255,255,255,.2); background: #8f1d2c; color: #fff; font-size: 11px; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 12px rgba(0,0,0,.2); }
+  .roster-player-remove:hover { background: #b42335; }
+  .roster-player-stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 8px; }
+  .roster-player-stat { display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; border-radius: 999px; background: rgba(255,255,255,.08); font-size: 10px; color: rgba(255,255,255,.82); }
+  .roster-player-line { height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,.2), transparent); margin: 10px 0 8px; }
   .roster-summary { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
   .roster-summary-chip { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; background: var(--bg3); border: 1px solid rgba(255,255,255,.06); font-size: 11px; color: var(--text2); }
   .roster-summary-chip b { color: var(--text); }
@@ -207,6 +214,7 @@
     .roster-center-circle { width: 86px; height: 86px; }
     .roster-zone { min-height: 66px; }
     .roster-player { min-width: 96px; max-width: 124px; padding: 9px 10px; }
+    .roster-player-rich { min-width: 132px; max-width: 160px; }
   }
   /* FIREBASE SETUP SCREEN */
   .setup-overlay { position: fixed; inset: 0; background: var(--bg); z-index: 3000; display: flex; align-items: center; justify-content: center; padding: 16px; }
@@ -871,56 +879,64 @@ function renderPlayers() {
 
   const PITCH_ZONES = [
     { positions: ['PE','ATA','CA','PD'], zone: 'Ataque' },
-    { positions: ['MEI'],               zone: 'Meia' },
-    { positions: ['VOL'],               zone: 'Volante' },
-    { positions: ['ZAG','LD','LE'],     zone: 'Defesa' },
-    { positions: ['GK'],                zone: 'Goleiro' }
+    { positions: ['MEI','VOL'],          zone: 'Meio' },
+    { positions: ['ZAG','LD','LE'],      zone: 'Defesa' },
+    { positions: ['GK'],                 zone: 'Gol' }
   ];
+  const renderPlayerCard = (p) => {
+    const color = POS_COLORS[p.pos] || '#4f8ef7';
+    const t = getPlayerTotals(p.id);
+    const stats = p.pos === 'GK'
+      ? [`🧤 ${t.defesas || 0}`, `💥 ${t.roubos || 0}`, `📋 ${t.treinos || 0} treinos`]
+      : [`⚽ ${t.gols || 0}`, `🅰️ ${t.assists || 0}`, `📋 ${t.treinos || 0} treinos`];
+    return `<div class="roster-player-rich" onclick="openReport(${p.id})" title="Ver relatório de ${p.name}">
+      ${isAdmin() ? `<button class="roster-player-remove" onclick="event.stopPropagation();removePlayer(${p.id})" title="Remover jogador">✕</button>` : ''}
+      <div class="roster-player-top">
+        <div class="roster-player-avatar" style="background:linear-gradient(135deg,${color}bb,${color}55)">${getAvatarLabel(p)}</div>
+        <div class="roster-player-pos">${p.pos}</div>
+      </div>
+      <div class="roster-player-name">${p.name}</div>
+      <div class="roster-player-meta">${p.num != null ? '#' + p.num + ' · ' : ''}${p.pos === 'GK' ? 'Goleiro' : 'Linha'}</div>
+      <div class="roster-player-line"></div>
+      <div class="roster-player-stats">${stats.map(stat => `<span class="roster-player-stat">${stat}</span>`).join('')}</div>
+    </div>`;
+  };
 
-  let rows = '';
-  PITCH_ZONES.forEach(z => {
+  const zoneHtml = PITCH_ZONES.map(z => {
     const players = appData.players.filter(p => z.positions.includes(p.pos));
-    if (!players.length) return;
-    rows += '<div class="pitch-row">' + players.map(p => {
-      const color = POS_COLORS[p.pos] || '#4f8ef7';
-      const t = getPlayerTotals(p.id);
-      const mainStat = p.pos === 'GK' ? `🧤 ${t.defesas}` : `⚽${t.gols} 🅰️${t.assists}`;
-      return `<div class="pitch-slot" onclick="openReport(${p.id})" style="cursor:pointer;position:relative">
-        ${isAdmin() ? `<button onclick="event.stopPropagation();removePlayer(${p.id})" style="position:absolute;top:-4px;right:0px;width:16px;height:16px;border-radius:50%;background:#e74c3c;border:none;color:#fff;font-size:9px;cursor:pointer;z-index:2;display:flex;align-items:center;justify-content:center;padding:0;line-height:1">✕</button>` : ''}
-        <div class="pitch-avatar-w" style="background:linear-gradient(135deg,${color}cc,${color}66)">${getAvatarLabel(p)}</div>
-        <div class="pitch-pname">${p.name.split(' ')[0]}${p.num!=null?' <span style="opacity:.55;font-weight:400">#'+p.num+'</span>':''}</div>
-        <div class="pitch-plabel">${p.pos}</div>
-        <div style="font-size:8px;color:rgba(255,255,255,.5);margin-top:1px;text-align:center">${mainStat}</div>
-      </div>`;
-    }).join('') + '</div>';
-  });
+    if (!players.length) return '';
+    return `<div class="roster-zone">
+      <div class="roster-zone-label">${z.zone}</div>
+      <div class="roster-zone-players">${players.map(renderPlayerCard).join('')}</div>
+    </div>`;
+  }).join('');
 
   const allPos = PITCH_ZONES.flatMap(z => z.positions);
   const other = appData.players.filter(p => !allPos.includes(p.pos));
-  if (other.length) {
-    rows += '<div class="pitch-row">' + other.map(p => {
-      const color = POS_COLORS[p.pos] || '#4f8ef7';
-      return `<div class="pitch-slot" onclick="openReport(${p.id})" style="cursor:pointer">
-        <div class="pitch-avatar-w" style="background:linear-gradient(135deg,${color}cc,${color}66)">${getAvatarLabel(p)}</div>
-        <div class="pitch-pname">${p.name.split(' ')[0]}</div>
-        <div class="pitch-plabel">${p.pos}</div>
-      </div>`;
-    }).join('') + '</div>';
-  }
+  const extrasHtml = other.length ? `<div class="roster-zone">
+    <div class="roster-zone-label">Extras</div>
+    <div class="roster-zone-players">${other.map(renderPlayerCard).join('')}</div>
+  </div>` : '';
 
   const countBadges = PITCH_ZONES.map(z => {
     const cnt = appData.players.filter(p => z.positions.includes(p.pos)).length;
     if (!cnt) return '';
-    return `<span style="font-size:11px;color:var(--text2);background:#1a1030;border-radius:6px;padding:3px 8px">${z.zone}: <b style="color:var(--text)">${cnt}</b></span>`;
+    const refPos = z.positions[0];
+    const color = POS_COLORS[refPos] || '#4f8ef7';
+    return `<span class="roster-summary-chip">
+      <span class="roster-summary-dot" style="background:${color};color:${color}"></span>
+      ${z.zone}: <b>${cnt}</b>
+    </span>`;
   }).filter(Boolean).join('');
 
   c.innerHTML = `
-    <div class="pitch-wrap">
-      <div class="pitch-inner">${rows}</div>
+    <div class="roster-board">
+      <div class="roster-center-circle"></div>
+      <div class="roster-zones">${zoneHtml}${extrasHtml}</div>
     </div>
-    <div style="display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:14px;padding-top:12px;border-top:1px solid #2e1a50">
+    <div class="roster-summary">
       ${countBadges}
-      <span style="font-size:11px;color:var(--text2);margin-left:auto">Total: <b style="color:var(--accent2)">${appData.players.length}</b> jogadores</span>
+      <span class="roster-summary-chip">Total: <b>${appData.players.length}</b> jogadores</span>
     </div>`;
 }
 
