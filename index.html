@@ -229,6 +229,186 @@
   .sync-dot.yellow { background: var(--yellow); animation: pulse .8s infinite; }
   .sync-dot.red { background: var(--red); }
   @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+
+  /* ===================================================================
+     MELHORIAS PARA MOBILE
+  =================================================================== */
+
+  /* Forçar grid4 (cards de stats) a manter 2 colunas mesmo em telas <420px */
+  @media(max-width:420px) {
+    .grid4 { grid-template-columns: 1fr 1fr !important; }
+  }
+
+  @media(max-width:640px) {
+    /* ---------- Header ---------- */
+    .header { padding: 10px 14px; gap: 10px; }
+    .logo { font-size: 18px; letter-spacing: .5px; }
+    .logo-sub { font-size: 9px; letter-spacing: 2px; }
+    .subtitle { font-size: 11px; }
+    .admin-badge { font-size: 10px; padding: 4px 8px; }
+
+    /* ---------- Nav com scroll horizontal (sem quebra de linha) ---------- */
+    .nav {
+      padding: 8px 12px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      overflow-y: hidden;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      gap: 4px;
+    }
+    .nav::-webkit-scrollbar { display: none; }
+    .nav-btn {
+      white-space: nowrap;
+      flex-shrink: 0;
+      padding: 7px 12px;
+      font-size: 12px;
+      min-height: 36px;
+    }
+
+    /* ---------- Área principal ---------- */
+    .main { padding: 10px; }
+
+    /* ---------- Cards ---------- */
+    .card { padding: 14px 12px; }
+    .card-title { font-size: 13px; margin-bottom: 12px; }
+
+    /* ---------- Grid4 → 2 colunas no mobile ---------- */
+    .grid4 { grid-template-columns: 1fr 1fr !important; }
+
+    /* ---------- Stat cards ---------- */
+    .stat-card { padding: 14px 10px; }
+    .stat-num { font-size: 28px; }
+    .stat-label { font-size: 11px; }
+
+    /* ---------- Seções com título + botão ---------- */
+    .section-header { flex-wrap: wrap; gap: 8px; }
+    .section-header h2 { font-size: 16px; }
+
+    /* ---------- Tabelas de ranking com scroll ---------- */
+    #ranking-container, #ranking-def-container {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .rank-table th, .rank-table td { padding: 8px; white-space: nowrap; }
+    .rank-table { font-size: 12px; }
+
+    /* ---------- Modais como bottom-sheet ---------- */
+    .modal-overlay { padding: 0; align-items: flex-end; }
+    .modal {
+      border-radius: 20px 20px 0 0;
+      max-width: 100%;
+      max-height: 90vh;
+      padding: 20px 16px 28px;
+    }
+    .modal-wide { max-width: 100%; }
+    .modal-header { margin-bottom: 14px; }
+    .modal-title { font-size: 15px; }
+
+    /* ---------- Lock / Auth ---------- */
+    .lock-overlay { padding: 16px; }
+    .lock-box { padding: 24px 18px; border-radius: 16px; }
+    .lock-icon { font-size: 38px; }
+    .lock-title { font-size: 17px; }
+
+    /* ---------- Tela de setup Firebase ---------- */
+    .setup-overlay { padding: 12px; }
+    .setup-box { padding: 20px 16px; border-radius: 16px; }
+    .setup-step { padding: 10px; gap: 10px; }
+    .setup-step-text { font-size: 12px; }
+
+    /* ---------- Inputs: font-size 16px evita zoom automático no iOS ---------- */
+    .form-group input,
+    .form-group select,
+    .form-group textarea { font-size: 16px !important; padding: 11px 12px; }
+    .stat-input-box input[type=number] { font-size: 16px !important; }
+
+    /* ---------- Botões com área de toque maior ---------- */
+    .btn { min-height: 42px; padding: 10px 16px; font-size: 13px; }
+    .btn-sm { min-height: 34px; padding: 6px 10px; font-size: 12px; }
+
+    /* ---------- Seletor de dias de treino ---------- */
+    .day-selector { gap: 4px; }
+    .day-btn { padding: 7px 10px; font-size: 12px; min-height: 36px; }
+
+    /* ---------- Campo de futebol (Escalação) ---------- */
+    .pitch-wrap { padding: 10px 4px; }
+    .pitch-inner { padding: 12px 4px; }
+    .pitch-row { gap: 4px; margin-bottom: 14px; }
+    .pitch-slot { min-width: 42px; }
+    .pitch-avatar-w { width: 38px; height: 38px; font-size: 11px; }
+    .pitch-empty { width: 38px; height: 38px; font-size: 17px; }
+    .pitch-pname { font-size: 9px; max-width: 46px; }
+    .pitch-plabel { font-size: 8px; }
+
+    /* ---------- Roster / Elenco ---------- */
+    .roster-board { padding: 12px; }
+    .roster-board::after { top: 18px; bottom: 18px; }
+    .roster-center-circle { width: 80px; height: 80px; }
+    .roster-zone { min-height: 60px; gap: 6px; }
+    .roster-player { min-width: 80px; max-width: 110px; padding: 8px 7px; }
+    .roster-player-rich { min-width: 110px; max-width: 138px; padding: 10px; }
+    .roster-player-avatar { width: 28px; height: 28px; font-size: 10px; }
+    .roster-player-name { font-size: 11px; }
+    .roster-player-meta { font-size: 9px; }
+    .roster-player-pos { font-size: 9px; }
+
+    /* ---------- Lista de jogadores ---------- */
+    .player-row { padding: 10px; gap: 10px; }
+    .player-avatar { width: 34px; height: 34px; font-size: 13px; }
+    .player-name { font-size: 13px; }
+    .player-pos-text { font-size: 11px; }
+
+    /* ---------- Cards de avaliação ---------- */
+    .eval-card { padding: 12px 10px; }
+    .eval-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+    .stat-input-box { padding: 10px 8px; }
+    .stat-input-box .stat-lbl { font-size: 10px; }
+    .stat-input-box .stat-icon { font-size: 17px; }
+
+    /* ---------- Histórico / sessões ---------- */
+    .session-item { padding: 12px; }
+    .session-title { font-size: 13px; }
+    .session-date { font-size: 11px; }
+
+    /* ---------- Slot de escalação (admin) ---------- */
+    .slot-row { padding: 8px; gap: 8px; }
+    .slot-badge { width: 36px; font-size: 10px; }
+
+    /* ---------- Status de escalação ---------- */
+    .escal-status { font-size: 11px; padding: 3px 10px; }
+
+    /* ---------- Report modal ---------- */
+    .report-header { padding: 14px; gap: 12px; flex-wrap: wrap; }
+    .report-avatar { width: 48px; height: 48px; font-size: 18px; flex-shrink: 0; }
+    .report-name { font-size: 16px; }
+    .report-meta { font-size: 12px; }
+    .hist-table th, .hist-table td { padding: 7px 8px; font-size: 12px; }
+
+    /* ---------- Alert ---------- */
+    .alert { font-size: 12px; padding: 10px 12px; }
+
+    /* ---------- Indicador de sync ---------- */
+    .sync-indicator { bottom: 8px; right: 8px; font-size: 11px; padding: 5px 10px; }
+
+    /* ---------- Tags ---------- */
+    .tag { font-size: 10px; padding: 2px 6px; }
+
+    /* ---------- Match banner (escalação) ---------- */
+    #escal-match-banner { padding: 12px; margin-bottom: 12px; }
+  }
+
+  /* Telas muito pequenas (<380px) — ajustes finos */
+  @media(max-width:380px) {
+    .logo { font-size: 15px; }
+    .stat-num { font-size: 22px; }
+    .nav-btn { padding: 6px 9px; font-size: 11px; }
+    .main { padding: 8px; }
+    .card { padding: 12px 10px; }
+    .pitch-avatar-w, .pitch-empty { width: 32px; height: 32px; }
+    .pitch-slot { min-width: 36px; }
+    .roster-player { min-width: 72px; }
+  }
 </style>
 <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
