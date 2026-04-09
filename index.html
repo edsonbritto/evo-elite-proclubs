@@ -923,8 +923,10 @@ let currentDeleteId = null;
 let selectedDay = '';
 let dbRef = null;
 let elencoFormacao = '4-3-3';
+let jogadoresFormacao = '4-3-3';
 
-function setElencoFormacao(f) { elencoFormacao = f; renderDashboard(); }
+function setElencoFormacao(f)   { elencoFormacao   = f; renderDashboard(); }
+function setJogadoresFormacao(f){ jogadoresFormacao = f; renderPlayers();  }
 
 // ---- Firebase config ----
 const FB_CFG_KEY = 'evoelite_fb_config';
@@ -1110,66 +1112,109 @@ function renderPlayers() {
   const c = document.getElementById('players-list-container');
   if (!appData.players.length) { c.innerHTML='<div class="empty"><div class="icon">👤</div>Nenhum jogador cadastrado</div>'; return; }
 
-  const PITCH_ZONES = [
-    { positions: ['PE','ATA','CA','PD'], zone: 'Ataque' },
-    { positions: ['MEI','VOL'],          zone: 'Meio' },
-    { positions: ['ZAG','LD','LE'],      zone: 'Defesa' },
-    { positions: ['GK'],                 zone: 'Gol' }
-  ];
-  const renderPlayerCard = (p) => {
-    const color = POS_COLORS[p.pos] || '#4f8ef7';
-    const t = getPlayerTotals(p.id);
-    const stats = p.pos === 'GK'
-      ? [`🧤 ${t.defesas || 0}`, `💥 ${t.roubos || 0}`, `📋 ${t.treinos || 0} treinos`]
-      : [`⚽ ${t.gols || 0}`, `🅰️ ${t.assists || 0}`, `📋 ${t.treinos || 0} treinos`];
-    return `<div class="roster-player-rich" onclick="openReport(${p.id})" title="Ver relatório de ${p.name}">
-      ${isAdmin() ? `<button class="roster-player-remove" onclick="event.stopPropagation();removePlayer(${p.id})" title="Remover jogador">✕</button>` : ''}
-      <div class="roster-player-top">
-        <div class="roster-player-avatar" style="background:linear-gradient(135deg,${color}bb,${color}55)">${getAvatarLabel(p)}</div>
-        <div class="roster-player-pos">${p.pos}</div>
-      </div>
-      <div class="roster-player-name">${p.name}</div>
-      <div class="roster-player-meta">${p.num != null ? '#' + p.num + ' · ' : ''}${p.pos === 'GK' ? 'Goleiro' : 'Linha'}</div>
-      <div class="roster-player-line"></div>
-      <div class="roster-player-stats">${stats.map(stat => `<span class="roster-player-stat">${stat}</span>`).join('')}</div>
-    </div>`;
+  const FORMACAO_PITCH = {
+    '4-3-3':   [ {pos:'GK',x:50,y:87},{pos:'LE',x:14,y:70},{pos:'ZAG',x:37,y:73},{pos:'ZAG',x:63,y:73},{pos:'LD',x:86,y:70},{pos:'MEI',x:25,y:50},{pos:'VOL',x:50,y:53},{pos:'MEI',x:75,y:50},{pos:'PE',x:14,y:22},{pos:'CA',x:50,y:18},{pos:'PD',x:86,y:22} ],
+    '4-4-2':   [ {pos:'GK',x:50,y:87},{pos:'LE',x:14,y:70},{pos:'ZAG',x:37,y:73},{pos:'ZAG',x:63,y:73},{pos:'LD',x:86,y:70},{pos:'PE',x:14,y:50},{pos:'VOL',x:37,y:52},{pos:'MEI',x:63,y:52},{pos:'PD',x:86,y:50},{pos:'ATA',x:37,y:20},{pos:'CA',x:63,y:20} ],
+    '4-2-3-1': [ {pos:'GK',x:50,y:87},{pos:'LE',x:14,y:70},{pos:'ZAG',x:37,y:73},{pos:'ZAG',x:63,y:73},{pos:'LD',x:86,y:70},{pos:'VOL',x:33,y:57},{pos:'VOL',x:67,y:57},{pos:'PE',x:14,y:37},{pos:'MEI',x:50,y:36},{pos:'PD',x:86,y:37},{pos:'CA',x:50,y:18} ],
+    '3-5-2':   [ {pos:'GK',x:50,y:87},{pos:'ZAG',x:25,y:73},{pos:'ZAG',x:50,y:73},{pos:'ZAG',x:75,y:73},{pos:'LE',x:10,y:52},{pos:'VOL',x:30,y:54},{pos:'MEI',x:50,y:48},{pos:'VOL',x:70,y:54},{pos:'LD',x:90,y:52},{pos:'ATA',x:35,y:20},{pos:'CA',x:65,y:20} ],
+    '5-3-2':   [ {pos:'GK',x:50,y:87},{pos:'LE',x:10,y:67},{pos:'ZAG',x:28,y:71},{pos:'ZAG',x:50,y:73},{pos:'ZAG',x:72,y:71},{pos:'LD',x:90,y:67},{pos:'VOL',x:28,y:50},{pos:'MEI',x:50,y:46},{pos:'VOL',x:72,y:50},{pos:'ATA',x:35,y:20},{pos:'CA',x:65,y:20} ]
   };
 
-  const zoneHtml = PITCH_ZONES.map(z => {
-    const players = appData.players.filter(p => z.positions.includes(p.pos));
-    if (!players.length) return '';
-    return `<div class="roster-zone">
-      <div class="roster-zone-label">${z.zone}</div>
-      <div class="roster-zone-players">${players.map(renderPlayerCard).join('')}</div>
+  // Filas por posição
+  const posQueues = {};
+  appData.players.forEach(p => {
+    const pos = p.pos || 'Outro';
+    if (!posQueues[pos]) posQueues[pos] = [];
+    posQueues[pos].push(p);
+  });
+  Object.values(posQueues).forEach(q => q.sort((a,b) => a.name.localeCompare(b.name)));
+
+  // Atribui aos slots
+  const posCtr = {};
+  const slots = (FORMACAO_PITCH[jogadoresFormacao] || FORMACAO_PITCH['4-3-3']).map(slot => {
+    const idx = posCtr[slot.pos] = (posCtr[slot.pos] || 0);
+    posCtr[slot.pos]++;
+    return { ...slot, player: (posQueues[slot.pos] || [])[idx] || null };
+  });
+
+  // Bench
+  const assignedIds = new Set(slots.filter(s => s.player).map(s => s.player.id));
+  const bench = appData.players.filter(p => !assignedIds.has(p.id));
+
+  // Slots no campo
+  const slotsHtml = slots.map(s => {
+    const p = s.player;
+    if (p) {
+      const color = POS_COLORS[p.pos] || '#4f8ef7';
+      const label = p.num != null ? '#'+p.num : p.pos;
+      return `<div class="ep-slot" style="left:${s.x}%;top:${s.y}%" onclick="openReport(${p.id})" title="${p.name} (${p.pos})">
+        <div class="ep-dot" style="background:linear-gradient(135deg,${color}cc,${color}66)">${label}</div>
+        <div class="ep-name">${p.name.split(' ')[0]}</div>
+      </div>`;
+    }
+    return `<div class="ep-slot" style="left:${s.x}%;top:${s.y}%">
+      <div class="ep-dot ep-dot--empty">${s.pos}</div>
+      <div class="ep-name ep-name--empty">${s.pos}</div>
     </div>`;
   }).join('');
 
-  const allPos = PITCH_ZONES.flatMap(z => z.positions);
-  const other = appData.players.filter(p => !allPos.includes(p.pos));
-  const extrasHtml = other.length ? `<div class="roster-zone">
-    <div class="roster-zone-label">Extras</div>
-    <div class="roster-zone-players">${other.map(renderPlayerCard).join('')}</div>
+  // Bench chips
+  const benchHtml = bench.length ? `<div class="elenco-bench">
+    <span class="elenco-bench-label">Reservas:</span>
+    ${bench.map(p => {
+      const color = POS_COLORS[p.pos] || '#4f8ef7';
+      return `<span class="elenco-bench-chip" onclick="openReport(${p.id})" style="cursor:pointer;border-color:${color}44">
+        <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${color}"></span>
+        ${p.name.split(' ')[0]} <span style="color:var(--text2)">${p.pos}</span>
+      </span>`;
+    }).join('')}
   </div>` : '';
 
-  const countBadges = PITCH_ZONES.map(z => {
-    const cnt = appData.players.filter(p => z.positions.includes(p.pos)).length;
-    if (!cnt) return '';
-    const refPos = z.positions[0];
-    const color = POS_COLORS[refPos] || '#4f8ef7';
-    return `<span class="roster-summary-chip">
-      <span class="roster-summary-dot" style="background:${color};color:${color}"></span>
-      ${z.zone}: <b>${cnt}</b>
-    </span>`;
-  }).filter(Boolean).join('');
+  // Dropdown formação
+  const fSelect = `<select class="formacao-select" onchange="setJogadoresFormacao(this.value)">
+    ${Object.keys(FORMACAO_PITCH).map(f=>`<option value="${f}"${jogadoresFormacao===f?' selected':''}>${f}</option>`).join('')}
+  </select>`;
+
+  // Lista completa de jogadores (stats + remover admin)
+  const posLabelFull = { GK:'Goleiro', ZAG:'Zagueiro', LD:'Lat. Direito', LE:'Lat. Esquerdo', VOL:'Volante', MEI:'Meia', PE:'Ponta Esq.', PD:'Ponta Dir.', ATA:'Atacante', CA:'Centroavante' };
+  const sortedPlayers = [...appData.players].sort((a,b) => {
+    const order = ['GK','LE','ZAG','LD','VOL','MEI','PE','ATA','CA','PD'];
+    return (order.indexOf(a.pos)||99) - (order.indexOf(b.pos)||99) || a.name.localeCompare(b.name);
+  });
+  const listHtml = sortedPlayers.map(p => {
+    const color = POS_COLORS[p.pos] || '#4f8ef7';
+    const t = getPlayerTotals(p.id);
+    const stats = p.pos === 'GK'
+      ? `🧤 ${t.defesas} def · 💥 ${t.roubos} roubo · 📋 ${t.treinos} treinos`
+      : `⚽ ${t.gols} gols · 🅰️ ${t.assists} ast · 📋 ${t.treinos} treinos`;
+    return `<div class="player-row">
+      <div class="player-avatar" style="background:linear-gradient(135deg,${color}bb,${color}44)">${getAvatarLabel(p)}</div>
+      <div style="flex:1;min-width:0">
+        <div class="player-name">${p.name}${p.num!=null?` <span style="color:var(--text2);font-size:12px">#${p.num}</span>`:''}</div>
+        <div class="player-pos-text">${posLabelFull[p.pos]||p.pos} · ${stats}</div>
+      </div>
+      ${isAdmin() ? `<button class="btn btn-danger btn-sm" onclick="removePlayer(${p.id})">✕</button>` : ''}
+    </div>`;
+  }).join('');
 
   c.innerHTML = `
-    <div class="roster-board">
-      <div class="roster-center-circle"></div>
-      <div class="roster-zones">${zoneHtml}${extrasHtml}</div>
+    <div class="formacao-selector">
+      <span class="formacao-label">⚽ Formação</span>${fSelect}
     </div>
-    <div class="roster-summary">
-      ${countBadges}
-      <span class="roster-summary-chip">Total: <b>${appData.players.length}</b> jogadores</span>
+    <div class="elenco-pitch-wrap">
+      <div class="elenco-pitch">
+        <div class="ep-border"></div><div class="ep-circle"></div>
+        <div class="ep-box-t"></div><div class="ep-box-b"></div>
+        <div class="ep-goal-t"></div><div class="ep-goal-b"></div>
+        ${slotsHtml}
+      </div>
+    </div>
+    ${benchHtml}
+    <div style="margin-top:16px;border-top:1px solid var(--border);padding-top:12px">
+      <div style="font-size:11px;font-weight:700;color:var(--text2);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px">
+        👥 Todos os Jogadores (${appData.players.length})
+      </div>
+      ${listHtml}
     </div>`;
 }
 
