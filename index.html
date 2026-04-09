@@ -238,6 +238,41 @@
   .roster-subrow { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; width:100%; }
   .roster-subrow + .roster-subrow { margin-top:8px; }
 
+  /* ── Campo horizontal: GK (esq) → DEF → MEIO → ATA (dir) ── */
+  .roster-board--h { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .roster-board--h .roster-zones {
+    display: flex !important;
+    flex-direction: row;
+    align-items: stretch;
+    gap: 0;
+    min-height: 280px;
+  }
+  .roster-board--h .roster-zone {
+    flex: 1;
+    min-width: 110px;
+    min-height: unset !important;
+    justify-content: center;
+    border-right: 1px dashed rgba(255,255,255,.12);
+    padding: 10px 6px;
+  }
+  .roster-board--h .roster-zone:last-child { border-right: none; }
+  .roster-board--h .roster-zone-label { margin-bottom: 10px; }
+  .roster-board--h .roster-zone-players {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+  }
+  .roster-board--h .roster-empty-slot { min-width: unset; width: 90%; }
+
+  /* ── Seletor de formação ── */
+  .formacao-selector { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; align-items:center; }
+  .formacao-label { font-size:11px; font-weight:700; color:var(--text2); text-transform:uppercase; letter-spacing:1px; flex-shrink:0; margin-right:2px; }
+  .formacao-btn { padding:5px 12px; border-radius:6px; border:1px solid var(--border); background:var(--bg3); color:var(--text2); cursor:pointer; font-size:12px; font-weight:700; transition:all .2s; }
+  .formacao-btn:hover { border-color:var(--accent); color:var(--accent2); }
+  .formacao-btn.active { background:linear-gradient(135deg,#6b21a8,#9333ea); border-color:#9333ea; color:#fff; box-shadow:0 0 10px #9333ea44; }
+
   /* ===================================================================
      MELHORIAS PARA MOBILE
   =================================================================== */
@@ -880,6 +915,9 @@ let appData = { players: [], sessions: [], escalacao: null, agenda: [] };
 let currentDeleteId = null;
 let selectedDay = '';
 let dbRef = null;
+let elencoFormacao = '4-3-3';
+
+function setElencoFormacao(f) { elencoFormacao = f; renderDashboard(); }
 
 // ---- Firebase config ----
 const FB_CFG_KEY = 'evoelite_fb_config';
@@ -1413,7 +1451,7 @@ function renderDashboard() {
   }).join('');
   } // fim else sessões
 
-  // Elenco do time — campinho visual com posicionamento correto por linha
+  // Elenco do time — campo horizontal (GK esq → ATA dir) + seletor de formação
   const ec = document.getElementById('dashboard-elenco-container');
   if (!appData.players.length) {
     ec.innerHTML = '<div class="empty"><div class="icon">👤</div>Nenhum jogador cadastrado</div>';
@@ -1421,7 +1459,16 @@ function renderDashboard() {
     const STANDARD_POS = ['GK','LE','ZAG','LD','VOL','MEI','PE','ATA','CA','PD'];
     const posLabelFull = { GK:'Goleiro', ZAG:'Zagueiro', LD:'Lat. Direito', LE:'Lat. Esquerdo', VOL:'Volante', MEI:'Meia', PE:'Ponta Esq.', PD:'Ponta Dir.', ATA:'Atacante', CA:'Centroavante' };
 
-    // Agrupar jogadores por posição e ordenar por nome
+    // Configurações de formação — cada item = uma coluna no campo (esq → dir)
+    const FORMACAO_CONFIGS = {
+      '4-3-3':   [ {l:'GOL',p:['GK']}, {l:'DEF',p:['LE','ZAG','LD']}, {l:'MEIO',p:['VOL','MEI']}, {l:'ATA',p:['PE','ATA','CA','PD']} ],
+      '4-4-2':   [ {l:'GOL',p:['GK']}, {l:'DEF',p:['LE','ZAG','LD']}, {l:'MEIO',p:['PE','VOL','MEI','PD']}, {l:'ATA',p:['ATA','CA']} ],
+      '4-2-3-1': [ {l:'GOL',p:['GK']}, {l:'DEF',p:['LE','ZAG','LD']}, {l:'VOL',p:['VOL']}, {l:'MEI',p:['PE','MEI','PD']}, {l:'ATA',p:['ATA','CA']} ],
+      '3-5-2':   [ {l:'GOL',p:['GK']}, {l:'DEF',p:['ZAG']}, {l:'MEIO',p:['LE','VOL','MEI','LD']}, {l:'ATA',p:['PE','ATA','CA','PD']} ],
+      '5-3-2':   [ {l:'GOL',p:['GK']}, {l:'DEF',p:['LE','ZAG','LD']}, {l:'MEIO',p:['VOL','MEI']}, {l:'ATA',p:['ATA','CA']} ]
+    };
+
+    // Agrupa e ordena jogadores por posição
     const grupos = {};
     appData.players.forEach(p => {
       const pos = p.pos || 'Outro';
@@ -1434,95 +1481,67 @@ function renderDashboard() {
     const renderPlayerCard = (p) => {
       const color = POS_COLORS[p.pos] || '#4f8ef7';
       const totals = getPlayerTotals(p.id);
-      const destaque = p.pos === 'GK'
-        ? `🧤 ${totals.defesas || 0} defesas`
-        : `⚽ ${totals.gols || 0} · 🅰️ ${totals.assists || 0}`;
+      const destaque = p.pos === 'GK' ? `🧤 ${totals.defesas||0} defesas` : `⚽ ${totals.gols||0} · 🅰️ ${totals.assists||0}`;
       return `<button class="roster-player" onclick="openReport(${p.id})" title="Ver relatório de ${p.name}">
         <div class="roster-player-top">
           <div class="roster-player-avatar" style="background:linear-gradient(135deg,${color}bb,${color}55)">${getAvatarLabel(p)}</div>
           <div class="roster-player-pos">${p.pos}</div>
         </div>
         <div class="roster-player-name">${p.name}</div>
-        <div class="roster-player-meta">${p.num != null ? '#' + p.num + ' · ' : ''}${destaque}</div>
+        <div class="roster-player-meta">${p.num!=null?'#'+p.num+' · ':''}${destaque}</div>
       </button>`;
     };
 
-    // Slot vazio quando nenhum jogador está cadastrado naquela posição
+    // Slot vazio para posição sem jogador
     const renderEmptySlot = (pos) => `<div class="roster-empty-slot" title="Sem ${posLabelFull[pos]||pos} cadastrado">
       <div class="roster-empty-circle">?</div>
       <div class="roster-empty-pos">${pos}</div>
     </div>`;
 
-    // Retorna cards dos jogadores da posição, ou slot vazio se não houver nenhum
-    const renderPosGroup = (pos) => {
-      const players = grupos[pos] || [];
-      return players.length ? players.map(renderPlayerCard).join('') : renderEmptySlot(pos);
-    };
-
-    // ── ATAQUE: PE | ATA | CA | PD ──
-    const atkPos = ['PE','ATA','CA','PD'];
-    const ataqueHtml = atkPos.some(p => grupos[p] && grupos[p].length) ? `
-      <div class="roster-zone">
-        <div class="roster-zone-label">Ataque</div>
-        <div class="roster-zone-players">
-          ${renderPosGroup('PE')}${renderPosGroup('ATA')}${renderPosGroup('CA')}${renderPosGroup('PD')}
-        </div>
-      </div>` : '';
-
-    // ── MEIO: MEI (linha ofensiva) em cima · VOL (linha defensiva) embaixo ──
-    const hasMei = grupos['MEI'] && grupos['MEI'].length;
-    const hasVol = grupos['VOL'] && grupos['VOL'].length;
-    const meioHtml = (hasMei || hasVol) ? `
-      <div class="roster-zone">
-        <div class="roster-zone-label">Meio</div>
-        ${hasMei ? `<div class="roster-subrow">${grupos['MEI'].map(renderPlayerCard).join('')}</div>` : ''}
-        ${hasVol ? `<div class="roster-subrow">${grupos['VOL'].map(renderPlayerCard).join('')}</div>` : ''}
-      </div>` : '';
-
-    // ── DEFESA: LE | ZAG(s) | LD ──
-    const defPos = ['LE','ZAG','LD'];
-    const defesaHtml = defPos.some(p => grupos[p] && grupos[p].length) ? `
-      <div class="roster-zone">
-        <div class="roster-zone-label">Defesa</div>
-        <div class="roster-zone-players">
-          ${renderPosGroup('LE')}${renderPosGroup('ZAG')}${renderPosGroup('LD')}
-        </div>
-      </div>` : '';
-
-    // ── GOL: GK centralizado (mostra slot vazio se não houver GK) ──
-    const golHtml = `
-      <div class="roster-zone">
-        <div class="roster-zone-label">Gol</div>
-        <div class="roster-zone-players">
-          ${grupos['GK'] && grupos['GK'].length
-            ? grupos['GK'].map(renderPlayerCard).join('')
-            : renderEmptySlot('GK')}
-        </div>
-      </div>`;
-
-    // ── EXTRAS: posições fora do padrão ──
-    const extraPos = Object.keys(grupos).filter(p => !STANDARD_POS.includes(p));
-    const extrasHtml = extraPos.length ? `
-      <div class="roster-zone">
-        <div class="roster-zone-label">Outros</div>
-        <div class="roster-zone-players">${extraPos.flatMap(p => grupos[p]).map(renderPlayerCard).join('')}</div>
-      </div>` : '';
-
-    // ── CHIPS DE RESUMO ──
-    const summaryHtml = [...STANDARD_POS, ...extraPos]
-      .filter(pos => grupos[pos] && grupos[pos].length)
-      .map(pos => {
-        const color = POS_COLORS[pos] || '#4f8ef7';
-        return `<span class="roster-summary-chip">
-          <span class="roster-summary-dot" style="background:${color};color:${color}"></span>
-          ${posLabelFull[pos] || pos}: <b>${grupos[pos].length}</b>
-        </span>`;
+    // Colunas da formação atual (esq → dir)
+    const formCols = FORMACAO_CONFIGS[elencoFormacao] || FORMACAO_CONFIGS['4-3-3'];
+    const zonesHtml = formCols.map(col => {
+      // Para cada posição da coluna: jogadores ou slot vazio
+      const colContent = col.p.map(pos => {
+        const players = grupos[pos] || [];
+        return players.length ? players.map(renderPlayerCard).join('') : renderEmptySlot(pos);
       }).join('');
+      return `<div class="roster-zone">
+        <div class="roster-zone-label">${col.l}</div>
+        <div class="roster-zone-players">${colContent}</div>
+      </div>`;
+    }).join('');
+
+    // Jogadores em posições fora da formação selecionada
+    const formPos = formCols.flatMap(c => c.p);
+    const extraPos = Object.keys(grupos).filter(p => !formPos.includes(p));
+    const extrasHtml = extraPos.length ? `<div class="roster-zone">
+      <div class="roster-zone-label">+</div>
+      <div class="roster-zone-players">${extraPos.flatMap(p => grupos[p]).map(renderPlayerCard).join('')}</div>
+    </div>` : '';
+
+    // Chips de resumo por posição
+    const allPos = [...STANDARD_POS, ...Object.keys(grupos).filter(p => !STANDARD_POS.includes(p))];
+    const summaryHtml = allPos.filter(pos => grupos[pos] && grupos[pos].length).map(pos => {
+      const color = POS_COLORS[pos] || '#4f8ef7';
+      return `<span class="roster-summary-chip">
+        <span class="roster-summary-dot" style="background:${color};color:${color}"></span>
+        ${posLabelFull[pos]||pos}: <b>${grupos[pos].length}</b>
+      </span>`;
+    }).join('');
+
+    // Botões do seletor de formação
+    const fSelector = Object.keys(FORMACAO_CONFIGS).map(f =>
+      `<button class="formacao-btn${elencoFormacao===f?' active':''}" onclick="setElencoFormacao('${f}')">${f}</button>`
+    ).join('');
 
     ec.innerHTML = `
-      <div class="roster-board">
+      <div class="formacao-selector">
+        <span class="formacao-label">Formação:</span>${fSelector}
+      </div>
+      <div class="roster-board roster-board--h">
         <div class="roster-center-circle"></div>
-        <div class="roster-zones">${ataqueHtml}${meioHtml}${defesaHtml}${golHtml}${extrasHtml}</div>
+        <div class="roster-zones">${zonesHtml}${extrasHtml}</div>
       </div>
       <div class="roster-summary">
         ${summaryHtml}
